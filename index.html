@@ -275,6 +275,15 @@
             border-left: none;
             border-top: none;
         }
+        
+        /* Elemento oculto para pré-carregar o vídeo */
+        #videoPreloader {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            z-index: -9999;
+        }
     </style>
 </head>
 <body>
@@ -301,6 +310,13 @@
         <p class="instructions">Clique no envelope para abrir o convite</p>
         <div class="floral-decoration"></div>
         <p class="couple-names">Luana & Tierry</p>
+    </div>
+
+    <!-- Pré-carregar o vídeo (oculto) -->
+    <div id="videoPreloader">
+        <video id="preloadVideo" preload="auto">
+            <source src="video/nosso-video.mp4" type="video/mp4">
+        </video>
     </div>
 
     <script>
@@ -332,6 +348,23 @@
         // Inicializar pétalas
         createPetals();
         
+        // Pré-carregar o vídeo assim que a página carregar
+        window.addEventListener('load', function() {
+            const preloadVideo = document.getElementById('preloadVideo');
+            if (preloadVideo) {
+                // Iniciar o carregamento do vídeo
+                preloadVideo.load();
+                
+                // Tentar reproduzir e pausar imediatamente para forçar o carregamento
+                preloadVideo.play().then(() => {
+                    preloadVideo.pause();
+                    preloadVideo.currentTime = 0;
+                }).catch(e => {
+                    console.log('Pré-carregamento automático não permitido:', e);
+                });
+            }
+        });
+        
         // Animação do envelope
         document.getElementById('envelope').addEventListener('click', function() {
             // Adiciona classe para animação de abertura
@@ -347,4 +380,4 @@
         });
     </script>
 </body>
-</html>
+</html> 
