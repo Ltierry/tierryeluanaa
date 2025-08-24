@@ -6,6 +6,7 @@
     <title>Convite de Casamento - Tierry & Luana</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
         * {
             margin: 0;
@@ -247,6 +248,157 @@
             margin: 20px 0;
         }
         
+        /* Mapa */
+        .map-container {
+            margin-top: 40px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: 400px;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Seção Nossa História */
+        .story-section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #5a3921;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #d32f2f;
+        }
+        
+        .story-content {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            text-align: center;
+        }
+        
+        /* Carrossel de Fotos */
+        .gallery-section {
+            padding: 80px 20px;
+            background: rgba(211, 47, 47, 0.03);
+        }
+        
+        .swiper {
+            width: 100%;
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .swiper-slide {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .swiper-pagination-bullet-active {
+            background: #d32f2f !important;
+        }
+        
+        /* Lista de Presentes */
+        .gifts-section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .gift-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .gift-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            width: 280px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .gift-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gift-image {
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .gift-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gift-card:hover .gift-image img {
+            transform: scale(1.05);
+        }
+        
+        .gift-details {
+            padding: 25px;
+        }
+        
+        .gift-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: #5a3921;
+            margin-bottom: 15px;
+        }
+        
+        .gift-btn {
+            display: inline-block;
+            background: #d32f2f;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .gift-btn:hover {
+            background: #b71c1c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3);
+        }
+        
         /* Seção RSVP */
         .rsvp-section {
             text-align: center;
@@ -296,6 +448,28 @@
             left: 100%;
         }
         
+        /* Controle de Música */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #d32f2f;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .music-control i {
+            font-size: 20px;
+        }
+        
         /* Modal */
         .modal {
             display: none;
@@ -321,6 +495,8 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             border: 1px solid rgba(211, 47, 47, 0.2);
             animation: modalFadeIn 0.5s ease;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
         @keyframes modalFadeIn {
@@ -473,6 +649,7 @@
             .couple-names { font-size: 3.8rem; }
             .hero-title { font-size: 3rem; }
             .hero-date { font-size: 1.8rem; }
+            .swiper { height: 400px; }
         }
         
         @media (max-width: 768px) {
@@ -486,6 +663,8 @@
             .location-details { font-size: 1.2rem; }
             .time { font-size: 1.5rem; }
             .modal-content { padding: 25px; }
+            .swiper { height: 350px; }
+            .map-container { height: 300px; }
         }
         
         @media (max-width: 480px) {
@@ -498,6 +677,10 @@
             .countdown-value { font-size: 1.8rem; }
             .countdown-label { font-size: 0.8rem; }
             .location-section { padding: 40px 20px; }
+            .swiper { height: 250px; }
+            .gift-card { width: 100%; max-width: 280px; }
+            .section-title { font-size: 2rem; }
+            .story-content { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -507,7 +690,7 @@
         <img src="https://i.ibb.co/gMz70WW0/0d311ba1-f81f-406e-b2d1-b4c22e86ce37.jpg" alt="Tierry e Luana" class="hero-photo">
         <div class="hero-overlay">
             <div class="hero-content animate">
-                <h1 class="hero-title">Nós vamosss nos casar!</h1>
+                <h1 class="hero-title">Nós vamos nos casar!</h1>
                 <div class="divider"></div>
                 <h2 class="couple-names">Tierry & Luana</h2>
                 <div class="divider"></div>
@@ -544,12 +727,84 @@
             </div>
         </section>
         
+        <!-- Nossa História -->
+        <section class="story-section animate">
+            <h3 class="section-title">Nossa História</h3>
+            <div class="story-content">
+                <p>Nosso amor começou em uma tarde de outono, quando nossos caminhos se cruzaram de forma inesperada. Desde aquele primeiro olhar, sabíamos que algo especial havia começado.</p>
+                <p>Foram anos de risadas, aprendizados, desafios superados juntos e momentos inesquecíveis que nos levaram a este dia especial. Agora, estamos prontos para celebrar nossa união e iniciar uma nova jornada como marido e mulher.</p>
+                <p>Queremos compartilhar este momento tão especial com todos que fizeram parte da nossa história e que continuam nos apoiando em mais este capítulo.</p>
+            </div>
+        </section>
+        
+        <!-- Galeria de Fotos -->
+        <section class="gallery-section animate">
+            <h3 class="section-title">Nossos Momentos</h3>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGNvdXBsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60" alt="Casal 1">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjR8fGNvdXBsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60" alt="Casamento 2">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGNvdXBsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60" alt="Casamento 3">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y291cGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="Casamento 4">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+        
         <!-- Seção de Local -->
         <section class="location-section animate">
             <h3 class="location-title">Localização</h3>
             <p class="location-details">Night And Day Casa de Festas</p>
             <p class="location-details">Rua Geraldo Anacleto 116, Magé, RJ, 25931-314</p>
             <div class="time">17:00</div>
+            
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58870.85427403731!2d-43.06664443422806!3d-22.75391143276825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9990b7c7f3f1df%3A0x4b351c8e22e9b16f!2sMag%C3%A9%2C%20RJ!5e0!3m2!1spt-BR!2sbr!4v1718659192424!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+        
+        <!-- Lista de Presentes -->
+        <section class="gifts-section animate">
+            <h3 class="section-title">Lista de Presentes</h3>
+            <div class="gift-options">
+                <div class="gift-card">
+                    <div class="gift-image">
+                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60" alt="Presente 1">
+                    </div>
+                    <div class="gift-details">
+                        <h4 class="gift-title">Casa e Cozinha</h4>
+                        <a href="#" class="gift-btn">Ver Lista</a>
+                    </div>
+                </div>
+                
+                <div class="gift-card">
+                    <div class="gift-image">
+                        <img src="https://images.unsplash.com/photo-1585155770447-2f66e2a397b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" alt="Presente 2">
+                    </div>
+                    <div class="gift-details">
+                        <h4 class="gift-title">Viagem de Lua de Mel</h4>
+                        <a href="#" class="gift-btn">Contribuir</a>
+                    </div>
+                </div>
+                
+                <div class="gift-card">
+                    <div class="gift-image">
+                        <img src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" alt="Presente 3">
+                    </div>
+                    <div class="gift-details">
+                        <h4 class="gift-title">Vale Presente</h4>
+                        <a href="#" class="gift-btn">Escolher</a>
+                    </div>
+                </div>
+            </div>
         </section>
         
         <!-- Seção RSVP -->
@@ -609,6 +864,18 @@
         </div>
     </div>
 
+    <!-- Controle de Música -->
+    <div class="music-control" id="musicControl">
+        <i class="fas fa-music"></i>
+    </div>
+
+    <!-- Áudio para música de fundo -->
+    <audio id="backgroundMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const rsvpButton = document.getElementById('rsvpButton');
@@ -616,6 +883,33 @@
             const closeModal = document.getElementById('closeModal');
             const rsvpForm = document.getElementById('rsvpForm');
             const confirmationMessage = document.getElementById('confirmationMessage');
+            const musicControl = document.getElementById('musicControl');
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            let isPlaying = false;
+            
+            // Inicializar Swiper (carrossel)
+            const swiper = new Swiper('.mySwiper', {
+                effect: 'coverflow',
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                coverflowEffect: {
+                    rotate: 20,
+                    stretch: 0,
+                    depth: 200,
+                    modifier: 1,
+                    slideShadows: true,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                loop: true,
+            });
             
             // Configurar a data do casamento (18 de Outubro de 2025)
             const weddingDate = new Date('October 18, 2025 17:00:00').getTime();
@@ -646,6 +940,18 @@
                     document.getElementById("seconds").textContent = "00";
                 }
             }, 1000);
+            
+            // Controle de música de fundo
+            musicControl.addEventListener('click', function() {
+                if (isPlaying) {
+                    backgroundMusic.pause();
+                    musicControl.innerHTML = '<i class="fas fa-music"></i>';
+                } else {
+                    backgroundMusic.play();
+                    musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                isPlaying = !isPlaying;
+            });
             
             // Abrir modal
             rsvpButton.addEventListener('click', function() {
@@ -703,4 +1009,4 @@
         }
     </script>
 </body>
-</html>
+</html> 
