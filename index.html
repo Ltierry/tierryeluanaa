@@ -740,6 +740,28 @@
     transform: scale(1.1);
     background: rgba(211, 47, 47, 1);
 }
+
+/* Controle de Vídeo */
+.video-control {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #d32f2f;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.video-control i {
+    font-size: 20px;
+}
     </style>
 </head>
 <body>
@@ -809,10 +831,28 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
                         <img src="https://i.ibb.co/v6rXz8bc/2.png">
                     </div>
                     <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGNvdXBsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60" alt="Casamento 3">
+                        <img src="https://i.ibb.co/rRtc2FZN/3.png">
                     </div>
                     <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y291cGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="Casamento 4">
+                        <img src="https://i.ibb.co/Hf3vQ9qs/4.png">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://i.ibb.co/cKr7cTNY/5.png">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://i.ibb.co/d0HDtVt1/6.png">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://i.ibb.co/ZpqmH2rw/7.png">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://i.ibb.co/tTwzbKZ7/8.png">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://i.ibb.co/8nHnzq2p/9.png">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://i.ibb.co/B5LNgSxW/10.png">
                     </div>
                 </div>
                 <div class="swiper-pagination"></div>
@@ -940,16 +980,11 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
     </div>
 </section>
 
-    <!-- Controle de Música -->
-    <div class="music-control" id="musicControl">
-        <i class="fas fa-music"></i>
-    </div>
+    <!-- Controle de Vídeo (substitui o controle de música) -->
+<div class="video-control" id="videoControl">
+    <i class="fas fa-play"></i>
+</div>
 
-    <!-- Áudio para música de fundo -->
-    <audio id="backgroundMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        Seu navegador não suporta o elemento de áudio.
-    </audio>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
@@ -959,9 +994,6 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
             const closeModal = document.getElementById('closeModal');
             const rsvpForm = document.getElementById('rsvpForm');
             const confirmationMessage = document.getElementById('confirmationMessage');
-            const musicControl = document.getElementById('musicControl');
-            const backgroundMusic = document.getElementById('backgroundMusic');
-            let isPlaying = false;
             
             // Inicializar Swiper (carrossel)
             const swiper = new Swiper('.mySwiper', {
@@ -1017,17 +1049,7 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
                 }
             }, 1000);
             
-            // Controle de música de fundo
-            musicControl.addEventListener('click', function() {
-                if (isPlaying) {
-                    backgroundMusic.pause();
-                    musicControl.innerHTML = '<i class="fas fa-music"></i>';
-                } else {
-                    backgroundMusic.play();
-                    musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-                }
-                isPlaying = !isPlaying;
-            });
+
             
             // Abrir modal
             rsvpButton.addEventListener('click', function() {
@@ -1083,28 +1105,29 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
                 behavior: 'smooth' 
             });
         }
-
-        // Controle de vídeo
+// Controle de vídeo
+const videoControl = document.getElementById('videoControl');
 const ourVideo = document.getElementById('ourVideo');
-const playButton = document.getElementById('playButton');
 let videoPlaying = false;
 
-playButton.addEventListener('click', function() {
+videoControl.addEventListener('click', function() {
     if (videoPlaying) {
         ourVideo.pause();
-        playButton.innerHTML = '<i class="fas fa-play"></i>';
+        videoControl.innerHTML = '<i class="fas fa-play"></i>';
     } else {
         ourVideo.play();
-        playButton.innerHTML = '<i class="fas fa-pause"></i>';
+        videoControl.innerHTML = '<i class="fas fa-pause"></i>';
     }
     videoPlaying = !videoPlaying;
 });
 
 // Resetar o botão quando o vídeo terminar
 ourVideo.addEventListener('ended', function() {
-    playButton.innerHTML = '<i class="fas fa-play"></i>';
+    videoControl.innerHTML = '<i class="fas fa-play"></i>';
     videoPlaying = false;
 });
+
+
     </script>
 </body>
 </html> 
