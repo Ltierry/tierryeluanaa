@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convite de Casamento - Tierry & Luana</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    <title>Convite de Casamento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,161 +13,187 @@
         }
         
         body {
-            font-family: 'Playfair Display', serif;
-            background: linear-gradient(to bottom, #f9f3e9, #f5e6d8);
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(to bottom, #f9f3e9, #f5ebe0);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            color: #5c3e2a;
+            color: #5a3e36;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .petal {
+            position: absolute;
+            top: -50px;
+            width: 20px;
+            height: 20px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d2b48c'%3E%3Cpath d='M12,2C9,7 4,9 4,14c0,3 3,4 5,4c1,0 2,0 3,-1c1,1 2,1 3,1c2,0 5,-1 5,-4C20,9 15,7 12,2Z'/%3E%3C/svg%3E") no-repeat;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
         }
         
         .container {
-            max-width: 1200px;
+            perspective: 1000px;
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
         
         .title {
-            font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: #8b0000;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #8a2b2b;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: 2px;
+            position: relative;
+            padding-bottom: 15px;
         }
         
-        .envelope-wrapper {
-            position: relative;
-            width: 320px;
-            height: 230px;
-            margin: 0 auto;
-            perspective: 1000px;
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #d2b48c, transparent);
         }
         
         .envelope {
             position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 0.8s ease;
+            width: 320px;
+            height: 220px;
+            background: linear-gradient(145deg, #a83c3c, #8a2b2b);
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 15px 30px rgba(138, 43, 43, 0.3);
             cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+            overflow: hidden;
         }
         
-        .envelope-front, .envelope-back {
+        .envelope:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+        
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23d2b48c' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+        
+        .envelope-front {
             position: absolute;
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
-        
-        .envelope-front {
-            background: linear-gradient(145deg, #8b0000, #a52a2a);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 2;
-            transform-origin: bottom;
-        }
-        
-        .envelope-back {
-            background: linear-gradient(145deg, #f9f3e9, #f5e6d8);
-            transform: rotateX(180deg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
         }
         
         .envelope-flap {
             position: absolute;
-            top: 0;
             width: 100%;
-            height: 100px;
-            background: linear-gradient(145deg, #8b0000, #a52a2a);
+            height: 110px;
+            background: linear-gradient(145deg, #c45e5e, #a83c3c);
             clip-path: polygon(0 0, 100% 0, 50% 100%);
             transform-origin: top;
-            transition: transform 0.8s ease;
-            z-index: 3;
+            transition: transform 1s ease;
+            z-index: 2;
+            box-shadow: 0 4px 10px rgba(90, 62, 54, 0.3);
+        }
+        
+        .envelope-body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 30px;
         }
         
         .seal {
             width: 70px;
             height: 70px;
-            background: radial-gradient(circle, #d4af37, #b8860b);
+            background: linear-gradient(145deg, #d2b48c, #c19a6b);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #8b0000;
+            color: #8a2b2b;
+            font-family: 'Playfair Display', serif;
             font-size: 14px;
+            font-weight: 600;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(90, 62, 54, 0.4);
             position: absolute;
-            top: 65px;
+            top: 70px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 4;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+            z-index: 3;
+            border: 2px solid #f5f5dc;
+            transition: all 0.3s ease;
         }
         
         .seal:hover {
-            transform: translateX(-50%) scale(1.05);
+            transform: translateX(-50%) scale(1.1);
         }
         
-        .seal i {
-            font-size: 24px;
-        }
-        
-        .floral-design {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0.15;
-            background-image: 
-                radial-gradient(circle at 20% 30%, #ffd700 10%, transparent 20%),
-                radial-gradient(circle at 80% 20%, #ffd700 8%, transparent 15%),
-                radial-gradient(circle at 30% 80%, #ffd700 12%, transparent 20%),
-                radial-gradient(circle at 75% 75%, #ffd700 10%, transparent 18%);
-        }
-        
-        .envelope-content {
-            text-align: center;
-            color: #8b0000;
-            padding: 0 15px;
-        }
-        
-        .couple-names {
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: #d4af37;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-        }
-        
-        .wedding-date {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #f5e6d8;
-        }
+           .envelope-content {
+        position: absolute;
+        bottom: 0;
+        width: 90%;
+        height: 85%;
+        background: linear-gradient(to bottom, #f5f5dc, #f8f4e9);
+        margin: 0 auto;
+        left: 5%;
+        border-radius: 5px 5px 0 0;
+        box-shadow: 0 -3px 10px rgba(90, 62, 54, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 90px 15px 15px 15px; /* ALTERE ESTA LINHA: aumente o primeiro valor */
+        color: #000000;
+        font-style: italic;
+        text-align: center;
+    }
         
         .instructions {
             margin-top: 30px;
-            color: #8b0000;
-            font-size: 1.2rem;
+            color: #8a2b2b;
+            font-size: 18px;
             animation: pulse 2s infinite;
-        }
-        
-        .tea-element {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            color: #d4af37;
-            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
         }
         
         @keyframes pulse {
@@ -181,142 +206,141 @@
             transform: rotateX(180deg);
         }
         
-        .open .envelope {
-            transform: rotateX(180deg);
-        }
-        
-        .message {
-            font-size: 1.1rem;
-            line-height: 1.6;
+        .couple-names {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
             text-align: center;
-            max-width: 280px;
+            color: #8a2b2b;
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
         }
         
-        .floral-border {
+        .floral-decoration {
             position: absolute;
             width: 100%;
-            height: 100%;
-            background-image: 
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath fill='%23d4af37' fill-opacity='0.3' d='M5,5 C5,10 10,5 10,10 C10,5 15,10 15,5 C15,10 20,5 20,10 C20,15 15,10 15,15 C15,10 10,15 10,10 C10,15 5,10 5,15 C5,10 0,15 0,10 C0,5 5,10 5,5 Z'/%3E%3C/svg%3E");
-            border-radius: 8px;
-            pointer-events: none;
-        }
-        
-        .footer-note {
-            margin-top: 20px;
-            font-style: italic;
-            color: #8b0000;
-            font-size: 1rem;
-        }
-        
-        /* Efeito de pétalas caindo */
-        .petals {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
+            height: 40px;
+            bottom: -70px;
             left: 0;
-            pointer-events: none;
-            z-index: 10;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V6c0,21.6,291,111.46,741,110.26,445.39,3.6,459-88.3,459-110.26V0Z' fill='%23d2b48c' opacity='0.3'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
         }
         
-        .petal {
+        .ribbon {
             position: absolute;
-            background-color: #ffd700;
+            width: 30px;
+            height: 100%;
+            background: linear-gradient(to bottom, #d2b48c, #c19a6b);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
             opacity: 0.7;
-            border-radius: 50% 0 50% 50%;
-            transform: rotate(45deg);
-            animation: fall linear infinite;
         }
         
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
+        .corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 2px solid #d2b48c;
+            opacity: 0.5;
+        }
+        
+        .corner-tl {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .corner-tr {
+            top: 10px;
+            right: 10px;
+            border-left: none;
+            border-bottom: none;
+        }
+        
+        .corner-bl {
+            bottom: 10px;
+            left: 10px;
+            border-right: none;
+            border-top: none;
+        }
+        
+        .corner-br {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
         }
     </style>
 </head>
 <body>
+    <div class="petals-container" id="petals-container"></div>
+    
     <div class="container">
-        <h1 class="title">Convite de Casamento</h1>
-        
-        <div class="envelope-wrapper">
-            <div class="envelope" id="envelope">
-                <div class="envelope-front">
-                    <div class="floral-design"></div>
-                    <div class="envelope-flap"></div>
-                    <div class="seal" id="seal">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <div class="couple-names">Tierry & Luana</div>
-                    <div class="wedding-date">18 de Outubro de 2025</div>
-                    <div class="tea-element">
-                        <i class="fas fa-teapot"></i>
-                    </div>
-                </div>
-                <div class="envelope-back">
-                    <div class="floral-border"></div>
-                    <div class="message">
-                        <p>Com grande alegria, convidamos você para celebrar nossa união matrimonial.</p>
-                        <p>Clique novamente para abrir o convite completo.</p>
+        <h1 class="title">NOSSO CASAMENTO</h1>
+        <div class="envelope" id="envelope">
+            <div class="envelope-front">
+                <div class="envelope-flap"></div>
+                <div class="envelope-body">
+                    <div class="ribbon"></div>
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-tr"></div>
+                    <div class="corner corner-bl"></div>
+                    <div class="corner corner-br"></div>
+                    <div class="seal">Clique para abrir</div>
+                    <div class="envelope-content">
+                        <p>O amor é a coisa mais preciosa que podemos compartilhar</p>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <p class="instructions">Clique no selo dourado para abrir o envelope</p>
-        <p class="footer-note">Uma celebração de amor e felicidade</p>
+        <p class="instructions">Clique no envelope para abrir o convite</p>
+        <div class="floral-decoration"></div>
+        <p class="couple-names">Luana & Tierry</p>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const envelope = document.getElementById('envelope');
-            const seal = document.getElementById('seal');
-            let isOpen = false;
+        // Função para criar pétalas caindo
+        function createPetals() {
+            const petalsContainer = document.getElementById('petals-container');
+            const numberOfPetals = 15;
             
-            // Função para criar pétalas
-            function createPetals() {
-                const petalsContainer = document.createElement('div');
-                petalsContainer.className = 'petals';
-                document.body.appendChild(petalsContainer);
+            for (let i = 0; i < numberOfPetals; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
                 
-                for (let i = 0; i < 15; i++) {
-                    const petal = document.createElement('div');
-                    petal.className = 'petal';
-                    
-                    const size = Math.random() * 15 + 5;
-                    petal.style.width = `${size}px`;
-                    petal.style.height = `${size}px`;
-                    
-                    petal.style.left = `${Math.random() * 100}vw`;
-                    petal.style.animationDuration = `${Math.random() * 5 + 5}s`;
-                    petal.style.animationDelay = `${Math.random() * 5}s`;
-                    
-                    petalsContainer.appendChild(petal);
-                }
+                // Posição e tamanho aleatórios
+                const left = Math.random() * 100;
+                const size = 15 + Math.random() * 15;
+                const delay = Math.random() * 15;
+                const duration = 10 + Math.random() * 20;
+                
+                petal.style.left = `${left}vw`;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+                petal.style.animationDelay = `${delay}s`;
+                petal.style.animationDuration = `${duration}s`;
+                
+                petalsContainer.appendChild(petal);
             }
+        }
+        
+        // Inicializar pétalas
+        createPetals();
+        
+        // Animação do envelope
+        document.getElementById('envelope').addEventListener('click', function() {
+            // Adiciona classe para animação de abertura
+            this.classList.add('open');
             
-            // Criar pétalas
-            createPetals();
-            
-            // Abrir envelope
-            seal.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (!isOpen) {
-                    envelope.classList.add('open');
-                    isOpen = true;
-                } else {
-                    window.location.href = 'convite.html';
-                }
-            });
-            
-            // Fechar envelope se clicar fora
-            envelope.addEventListener('click', function() {
-                if (isOpen) {
-                    window.location.href = 'convite.html';
-                }
-            });
+            // Aguarda a animação terminar antes de redirecionar
+            setTimeout(function() {
+                window.location.href = 'convite.html';
+            }, 1000);
         });
     </script>
 </body>
