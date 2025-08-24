@@ -276,17 +276,51 @@
             border-top: none;
         }
         
-        /* Elemento oculto para pré-carregar o vídeo */
-        #videoPreloader {
-            position: absolute;
-            width: 0;
-            height: 0;
-            overflow: hidden;
-            z-index: -9999;
+        /* Loading screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #f9f3e9, #f5ebe0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(210, 180, 140, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid #d2b48c;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            margin-top: 20px;
+            font-family: 'Playfair Display', serif;
+            color: #8a2b2b;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
+    <div class="loading-screen" id="loadingScreen">
+        <div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Carregando...</div>
+        </div>
+    </div>
+    
     <div class="petals-container" id="petals-container"></div>
     
     <div class="container">
@@ -310,13 +344,6 @@
         <p class="instructions">Clique no envelope para abrir o convite</p>
         <div class="floral-decoration"></div>
         <p class="couple-names">Luana & Tierry</p>
-    </div>
-
-    <!-- Pré-carregar o vídeo (oculto) -->
-    <div id="videoPreloader">
-        <video id="preloadVideo" preload="auto">
-            <source src="video/nosso-video.mp4" type="video/mp4">
-        </video>
     </div>
 
     <script>
@@ -345,39 +372,73 @@
             }
         }
         
-        // Inicializar pétalas
-        createPetals();
-        
-        // Pré-carregar o vídeo assim que a página carregar
-        window.addEventListener('load', function() {
-            const preloadVideo = document.getElementById('preloadVideo');
-            if (preloadVideo) {
-                // Iniciar o carregamento do vídeo
-                preloadVideo.load();
+        // Pré-carregar o vídeo da segunda página
+        function preloadVideo() {
+            return new Promise((resolve) => {
+                const video = document.createElement('video');
+                video.preload = 'auto';
+                video.src = 'video/nosso-video.mp4';
+                video.style.display = 'none';
                 
-                // Tentar reproduzir e pausar imediatamente para forçar o carregamento
-                preloadVideo.play().then(() => {
-                    preloadVideo.pause();
-                    preloadVideo.currentTime = 0;
-                }).catch(e => {
-                    console.log('Pré-carregamento automático não permitido:', e);
+                video.addEventListener('loadeddata', () => {
+                    resolve(true);
                 });
-            }
-        });
+                
+                video.addEventListener('error', () => {
+                    // Mesmo se houver erro, continuamos
+                    resolve(false);
+                });
+                
+                document.body.appendChild(video);
+                
+                // Forçar o carregamento
+                video.load();
+                
+                // Timeout para não travar a página se o vídeo não carregar
+                setTimeout(() => resolve(false), 5000);
+            });
+        }
         
-        // Animação do envelope
-        document.getElementById('envelope').addEventListener('click', function() {
-            // Adiciona classe para animação de abertura
-            this.classList.add('open');
+        // Inicializar a página
+        async function initializePage() {
+            // Mostrar loading
+            const loadingScreen = document.getElementById('loadingScreen');
             
-            // Salva a informação de que o vídeo deve iniciar automaticamente
-            sessionStorage.setItem('autoPlayVideo', 'true');
+            // Iniciar pré-carregamento do vídeo em segundo plano
+            const preloadPromise = preloadVideo();
             
-            // Aguarda a animação terminar antes de redirecionar
-            setTimeout(function() {
-                window.location.href = 'convite.html';
-            }, 1000);
-        });
+            // Inicializar elementos visuais
+            createPetals();
+            
+            // Aguardar um pouco para mostrar o loading (pelo menos 1 segundo)
+            await Promise.all([
+                preloadPromise,
+                new Promise(resolve => setTimeout(resolve, 1000))
+            ]);
+            
+            // Esconder loading
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+            
+            // Animação do envelope
+            document.getElementById('envelope').addEventListener('click', function() {
+                // Adiciona classe para animação de abertura
+                this.classList.add('open');
+                
+                // Salva a informação de que o vídeo deve iniciar automaticamente
+                sessionStorage.setItem('autoPlayVideo', 'true');
+                
+                // Aguarda a animação terminar antes de redirecionar
+                setTimeout(function() {
+                    window.location.href = 'convite.html';
+                }, 1000);
+            });
+        }
+        
+        // Iniciar a página quando carregada
+        window.addEventListener('load', initializePage);
     </script>
 </body>
-</html> 
+</html>

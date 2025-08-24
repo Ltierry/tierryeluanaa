@@ -358,7 +358,7 @@
         
         .swiper {
             width: 100%;
-            height: 500px;
+            height: 900px;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 15px 40px rgba(0,0,0,0.15);
@@ -1206,36 +1206,31 @@ window.addEventListener('load', function() {
         const videoControl = document.getElementById('videoControl');
         
         if (autoPlay === 'true' && ourVideo) {
-            // Configurar o vídeo para reprodução automática sem restrições
-            ourVideo.muted = true; // Necessário para autoplay em muitos navegadores
+            // Configurar para reprodução imediata
+            ourVideo.muted = true;
             ourVideo.playsInline = true;
             
-            // Tentar iniciar o vídeo imediatamente
-            const playPromise = ourVideo.play();
+            // Tentar reproduzir imediatamente
+            const tryPlay = () => {
+                ourVideo.play()
+                    .then(() => {
+                        // Sucesso - restaurar áudio
+                        ourVideo.muted = false;
+                        
+                        // Atualizar o ícone do controle de vídeo
+                        if (videoControl) {
+                            videoControl.innerHTML = '<i class="fas fa-pause"></i>';
+                        }
+                    })
+                    .catch(error => {
+                        // Se falhar, tentar novamente após um pequeno delay
+                        console.log('Tentativa de reprodução falhou, tentando novamente...', error);
+                        setTimeout(tryPlay, 300);
+                    });
+            };
             
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    // Vídeo iniciado com sucesso
-                    ourVideo.muted = false; // Restaurar áudio
-                    
-                    // Atualizar o ícone do controle de vídeo
-                    if (videoControl) {
-                        videoControl.innerHTML = '<i class="fas fa-pause"></i>';
-                    }
-                }).catch(error => {
-                    // Fallback: tentar iniciar com interação do usuário
-                    console.log('Reprodução automática falhou, tentando com interação do usuário:', error);
-                    document.body.addEventListener('click', function videoPlayOnClick() {
-                        ourVideo.play().then(() => {
-                            ourVideo.muted = false;
-                            if (videoControl) {
-                                videoControl.innerHTML = '<i class="fas fa-pause"></i>';
-                            }
-                            document.body.removeEventListener('click', videoPlayOnClick);
-                        });
-                    }, { once: true });
-                });
-            }
+            // Iniciar a tentativa de reprodução
+            tryPlay();
             
             // Limpar a flag de autoplay
             sessionStorage.removeItem('autoPlayVideo');
