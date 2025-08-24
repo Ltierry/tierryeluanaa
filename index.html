@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Casamento</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background-color: #f9f3e9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            perspective: 1000px;
+            text-align: center;
+        }
+        
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(145deg, #e6d5b8, #d4c1a0);
+            margin: 0 auto;
+            border-radius: 5px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+        
+        .envelope:hover {
+            transform: translateY(-5px);
+        }
+        
+        .envelope-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .envelope-flap {
+            position: absolute;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(145deg, #d6c3a5, #c5b293);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top;
+            transition: transform 1s ease;
+            z-index: 2;
+        }
+        
+        .envelope-body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 30px;
+        }
+        
+        .seal {
+            width: 60px;
+            height: 60px;
+            background-color: #c19a6b;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+        
+        .instructions {
+            margin-top: 30px;
+            color: #7d5d3b;
+            font-size: 18px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        .open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+        
+        .couple-names {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #7d5d3b;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="envelope" id="envelope">
+            <div class="envelope-front">
+                <div class="envelope-flap"></div>
+                <div class="envelope-body">
+                    <div class="seal">Clique para abrir</div>
+                </div>
+            </div>
+        </div>
+        <p class="instructions">Clique no envelope para abrir o convite</p>
+        <p class="couple-names">Ana & Carlos</p>
+    </div>
+
+    <script>
+        document.getElementById('envelope').addEventListener('click', function() {
+            // Adiciona classe para animação de abertura
+            this.classList.add('open');
+            
+            // Aguarda a animação terminar antes de redirecionar
+            setTimeout(function() {
+                window.location.href = 'convite.html';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
