@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convite de Casamento</title>
+    <title>Convite de Casamento - Tierry & Luana</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,91 +14,161 @@
         }
         
         body {
-            font-family: 'Cormorant Garamond', serif;
-            background-color: #f9f3e9;
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(to bottom, #f9f3e9, #f5e6d8);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            color: #5c3e2a;
         }
         
         .container {
-            perspective: 1000px;
+            max-width: 1200px;
             text-align: center;
+        }
+        
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #8b0000;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 230px;
+            margin: 0 auto;
+            perspective: 1000px;
         }
         
         .envelope {
             position: relative;
-            width: 300px;
-            height: 200px;
-            background: linear-gradient(145deg, #e6d5b8, #d4c1a0);
-            margin: 0 auto;
-            border-radius: 5px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
+            width: 100%;
+            height: 100%;
             transform-style: preserve-3d;
-            transition: transform 0.5s ease;
+            transition: transform 0.8s ease;
+            cursor: pointer;
         }
         
-        .envelope:hover {
-            transform: translateY(-5px);
-        }
-        
-        .envelope-front {
+        .envelope-front, .envelope-back {
             position: absolute;
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 5px;
+            border-radius: 8px;
             overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .envelope-front {
+            background: linear-gradient(145deg, #8b0000, #a52a2a);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            transform-origin: bottom;
+        }
+        
+        .envelope-back {
+            background: linear-gradient(145deg, #f9f3e9, #f5e6d8);
+            transform: rotateX(180deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
         
         .envelope-flap {
             position: absolute;
+            top: 0;
             width: 100%;
             height: 100px;
-            background: linear-gradient(145deg, #d6c3a5, #c5b293);
+            background: linear-gradient(145deg, #8b0000, #a52a2a);
             clip-path: polygon(0 0, 100% 0, 50% 100%);
             transform-origin: top;
-            transition: transform 1s ease;
-            z-index: 2;
-        }
-        
-        .envelope-body {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-top: 30px;
+            transition: transform 0.8s ease;
+            z-index: 3;
         }
         
         .seal {
-            width: 60px;
-            height: 60px;
-            background-color: #c19a6b;
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle, #d4af37, #b8860b);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            font-size: 12px;
+            color: #8b0000;
+            font-size: 14px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             position: absolute;
-            top: 70px;
+            top: 65px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 3;
+            z-index: 4;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .seal:hover {
+            transform: translateX(-50%) scale(1.05);
+        }
+        
+        .seal i {
+            font-size: 24px;
+        }
+        
+        .floral-design {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            background-image: 
+                radial-gradient(circle at 20% 30%, #ffd700 10%, transparent 20%),
+                radial-gradient(circle at 80% 20%, #ffd700 8%, transparent 15%),
+                radial-gradient(circle at 30% 80%, #ffd700 12%, transparent 20%),
+                radial-gradient(circle at 75% 75%, #ffd700 10%, transparent 18%);
+        }
+        
+        .envelope-content {
+            text-align: center;
+            color: #8b0000;
+            padding: 0 15px;
+        }
+        
+        .couple-names {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #d4af37;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        
+        .wedding-date {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #f5e6d8;
         }
         
         .instructions {
             margin-top: 30px;
-            color: #7d5d3b;
-            font-size: 18px;
+            color: #8b0000;
+            font-size: 1.2rem;
             animation: pulse 2s infinite;
+        }
+        
+        .tea-element {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            color: #d4af37;
+            font-size: 1.5rem;
         }
         
         @keyframes pulse {
@@ -109,39 +181,142 @@
             transform: rotateX(180deg);
         }
         
-        .couple-names {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
+        .open .envelope {
+            transform: rotateX(180deg);
+        }
+        
+        .message {
+            font-size: 1.1rem;
+            line-height: 1.6;
             text-align: center;
-            color: #7d5d3b;
+            max-width: 280px;
+        }
+        
+        .floral-border {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath fill='%23d4af37' fill-opacity='0.3' d='M5,5 C5,10 10,5 10,10 C10,5 15,10 15,5 C15,10 20,5 20,10 C20,15 15,10 15,15 C15,10 10,15 10,10 C10,15 5,10 5,15 C5,10 0,15 0,10 C0,5 5,10 5,5 Z'/%3E%3C/svg%3E");
+            border-radius: 8px;
+            pointer-events: none;
+        }
+        
+        .footer-note {
+            margin-top: 20px;
             font-style: italic;
+            color: #8b0000;
+            font-size: 1rem;
+        }
+        
+        /* Efeito de pétalas caindo */
+        .petals {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .petal {
+            position: absolute;
+            background-color: #ffd700;
+            opacity: 0.7;
+            border-radius: 50% 0 50% 50%;
+            transform: rotate(45deg);
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="envelope" id="envelope">
-            <div class="envelope-front">
-                <div class="envelope-flap"></div>
-                <div class="envelope-body">
-                    <div class="seal">Clique para abrir</div>
+        <h1 class="title">Convite de Casamento</h1>
+        
+        <div class="envelope-wrapper">
+            <div class="envelope" id="envelope">
+                <div class="envelope-front">
+                    <div class="floral-design"></div>
+                    <div class="envelope-flap"></div>
+                    <div class="seal" id="seal">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="couple-names">Tierry & Luana</div>
+                    <div class="wedding-date">18 de Outubro de 2025</div>
+                    <div class="tea-element">
+                        <i class="fas fa-teapot"></i>
+                    </div>
+                </div>
+                <div class="envelope-back">
+                    <div class="floral-border"></div>
+                    <div class="message">
+                        <p>Com grande alegria, convidamos você para celebrar nossa união matrimonial.</p>
+                        <p>Clique novamente para abrir o convite completo.</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <p class="instructions">Clique no envelope para abrir o convite</p>
-        <p class="couple-names">Ana & Carlos</p>
+        
+        <p class="instructions">Clique no selo dourado para abrir o envelope</p>
+        <p class="footer-note">Uma celebração de amor e felicidade</p>
     </div>
 
     <script>
-        document.getElementById('envelope').addEventListener('click', function() {
-            // Adiciona classe para animação de abertura
-            this.classList.add('open');
+        document.addEventListener('DOMContentLoaded', function() {
+            const envelope = document.getElementById('envelope');
+            const seal = document.getElementById('seal');
+            let isOpen = false;
             
-            // Aguarda a animação terminar antes de redirecionar
-            setTimeout(function() {
-                window.location.href = 'convite.html';
-            }, 1000);
+            // Função para criar pétalas
+            function createPetals() {
+                const petalsContainer = document.createElement('div');
+                petalsContainer.className = 'petals';
+                document.body.appendChild(petalsContainer);
+                
+                for (let i = 0; i < 15; i++) {
+                    const petal = document.createElement('div');
+                    petal.className = 'petal';
+                    
+                    const size = Math.random() * 15 + 5;
+                    petal.style.width = `${size}px`;
+                    petal.style.height = `${size}px`;
+                    
+                    petal.style.left = `${Math.random() * 100}vw`;
+                    petal.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                    petal.style.animationDelay = `${Math.random() * 5}s`;
+                    
+                    petalsContainer.appendChild(petal);
+                }
+            }
+            
+            // Criar pétalas
+            createPetals();
+            
+            // Abrir envelope
+            seal.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (!isOpen) {
+                    envelope.classList.add('open');
+                    isOpen = true;
+                } else {
+                    window.location.href = 'convite.html';
+                }
+            });
+            
+            // Fechar envelope se clicar fora
+            envelope.addEventListener('click', function() {
+                if (isOpen) {
+                    window.location.href = 'convite.html';
+                }
+            });
         });
     </script>
 </body>
