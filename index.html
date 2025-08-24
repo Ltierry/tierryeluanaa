@@ -682,6 +682,64 @@
             .section-title { font-size: 2rem; }
             .story-content { font-size: 1.1rem; }
         }
+
+        /* Seção de Vídeo */
+.video-section {
+    padding: 80px 20px;
+    text-align: center;
+    background: rgba(211, 47, 47, 0.03);
+}
+
+.video-container {
+    max-width: 900px;
+    margin: 40px auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    position: relative;
+}
+
+.video-container video {
+    width: 100%;
+    display: block;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.video-container:hover .video-overlay {
+    opacity: 1;
+}
+
+.play-button {
+    width: 70px;
+    height: 70px;
+    background: rgba(211, 47, 47, 0.8);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.play-button:hover {
+    transform: scale(1.1);
+    background: rgba(211, 47, 47, 1);
+}
     </style>
 </head>
 <body>
@@ -731,9 +789,11 @@
         <section class="story-section animate">
             <h3 class="section-title">Nossa História</h3>
             <div class="story-content">
-                <p>Nosso amor começou em uma tarde de outono, quando nossos caminhos se cruzaram de forma inesperada. Desde aquele primeiro olhar, sabíamos que algo especial havia começado.</p>
-                <p>Foram anos de risadas, aprendizados, desafios superados juntos e momentos inesquecíveis que nos levaram a este dia especial. Agora, estamos prontos para celebrar nossa união e iniciar uma nova jornada como marido e mulher.</p>
-                <p>Queremos compartilhar este momento tão especial com todos que fizeram parte da nossa história e que continuam nos apoiando em mais este capítulo.</p>
+                <p>Desde que nos conhecemos, lá atrás, quando tínhamos 15 e 14 anos, algo dentro de nós já sabia que seríamos especiais um para o outro. Mesmo quando a vida nos levou por caminhos diferentes e algumas tentativas não deram certo, o sentimento nunca deixou de existir.
+
+A gente se reencontrou tantas vezes... como se o destino fizesse questão de nos lembrar que ainda havia algo forte entre nós.
+
+Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo foi necessário para amadurecermos, para valorizarmos um ao outro do jeito que merecemos. Hoje, a ideia de nos casar não é só um sonho — é um plano, é um compromisso, é o que nosso coração deseja desde aquele primeiro amor adolescente que nunca morreu.
             </div>
         </section>
         
@@ -743,10 +803,10 @@
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGNvdXBsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60" alt="Casal 1">
+                        <img src="https://i.ibb.co/vx9qXr84/1.png">
                     </div>
                     <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjR8fGNvdXBsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60" alt="Casamento 2">
+                        <img src="https://i.ibb.co/v6rXz8bc/2.png">
                     </div>
                     <div class="swiper-slide">
                         <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGNvdXBsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60" alt="Casamento 3">
@@ -863,6 +923,22 @@
             </form>
         </div>
     </div>
+
+    <!-- Seção de Vídeo -->
+<section class="video-section animate">
+    <h3 class="section-title">Nosso Vídeo</h3>
+    <div class="video-container">
+        <video id="ourVideo" poster="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60">
+            <source src="video/nosso-video.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+        </video>
+        <div class="video-overlay">
+            <div class="play-button" id="playButton">
+                <i class="fas fa-play"></i>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- Controle de Música -->
     <div class="music-control" id="musicControl">
@@ -1007,6 +1083,28 @@
                 behavior: 'smooth' 
             });
         }
+
+        // Controle de vídeo
+const ourVideo = document.getElementById('ourVideo');
+const playButton = document.getElementById('playButton');
+let videoPlaying = false;
+
+playButton.addEventListener('click', function() {
+    if (videoPlaying) {
+        ourVideo.pause();
+        playButton.innerHTML = '<i class="fas fa-play"></i>';
+    } else {
+        ourVideo.play();
+        playButton.innerHTML = '<i class="fas fa-pause"></i>';
+    }
+    videoPlaying = !videoPlaying;
+});
+
+// Resetar o botão quando o vídeo terminar
+ourVideo.addEventListener('ended', function() {
+    playButton.innerHTML = '<i class="fas fa-play"></i>';
+    videoPlaying = false;
+});
     </script>
 </body>
 </html> 
