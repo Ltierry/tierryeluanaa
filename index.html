@@ -168,24 +168,24 @@
             transform: translateX(-50%) scale(1.1);
         }
         
-           .envelope-content {
-        position: absolute;
-        bottom: 0;
-        width: 90%;
-        height: 85%;
-        background: linear-gradient(to bottom, #f5f5dc, #f8f4e9);
-        margin: 0 auto;
-        left: 5%;
-        border-radius: 5px 5px 0 0;
-        box-shadow: 0 -3px 10px rgba(90, 62, 54, 0.2);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 90px 15px 15px 15px; /* ALTERE ESTA LINHA: aumente o primeiro valor */
-        color: #000000;
-        font-style: italic;
-        text-align: center;
-    }
+        .envelope-content {
+            position: absolute;
+            bottom: 0;
+            width: 90%;
+            height: 85%;
+            background: linear-gradient(to bottom, #f5f5dc, #f8f4e9);
+            margin: 0 auto;
+            left: 5%;
+            border-radius: 5px 5px 0 0;
+            box-shadow: 0 -3px 10px rgba(90, 62, 54, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 90px 15px 15px 15px;
+            color: #000000;
+            font-style: italic;
+            text-align: center;
+        }
         
         .instructions {
             margin-top: 30px;
@@ -336,6 +336,9 @@
         document.getElementById('envelope').addEventListener('click', function() {
             // Adiciona classe para animação de abertura
             this.classList.add('open');
+            
+            // Salva a informação de que o vídeo deve iniciar automaticamente
+            sessionStorage.setItem('autoPlayVideo', 'true');
             
             // Aguarda a animação terminar antes de redirecionar
             setTimeout(function() {

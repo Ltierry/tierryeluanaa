@@ -1118,6 +1118,40 @@ ourVideo.addEventListener('ended', function() {
     videoControl.innerHTML = '<i class="fas fa-play"></i>';
     videoPlaying = false;
 });
+window.addEventListener('load', function() {
+    const ourVideo = document.getElementById('ourVideo');
+    const previewVideo = document.getElementById('previewVideo');
+    
+    // Se o vídeo de preview estava tocando, continua a reprodução
+    if (previewVideo && ourVideo && !ourVideo.paused) {
+        ourVideo.currentTime = previewVideo.currentTime;
+        ourVideo.play();
+        
+        // Atualiza o ícone do controle de vídeo
+        const videoControl = document.getElementById('videoControl');
+        if (videoControl) {
+            videoControl.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+        const autoPlay = sessionStorage.getItem('autoPlayVideo');
+        const ourVideo = document.getElementById('ourVideo');
+        const videoControl = document.getElementById('videoControl');
+        
+        if (autoPlay === 'true' && ourVideo) {
+            // Iniciar o vídeo
+            ourVideo.play();
+            
+            // Atualizar o ícone do controle de vídeo
+            if (videoControl) {
+                videoControl.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+            
+            // Limpar a flag de autoplay
+            sessionStorage.removeItem('autoPlayVideo');
+        }
+    });
 
 
     </script>
