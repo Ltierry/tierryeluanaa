@@ -940,78 +940,62 @@
         }
         
         /* Container para as pétalas */
-        .petals-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 5;
-            overflow: hidden;
-        }
-        
-        .petal {
-            position: absolute;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 25 25'%3E%3Cpath fill='%23ffebcd' d='M12.5 0C5.6 0 0 5.6 0 12.5S5.6 25 12.5 25 25 19.4 25 12.5 19.4 0 12.5 0zm0 23.5c-6.1 0-11-4.9-11-11s4.9-11 11-11 11 4.9 11 11-4.9 11-11 11z'/%3E%3Cpath fill='%23ffebcd' d='M12.5 2c5.8 0 10.5 4.7 10.5 10.5S18.3 23 12.5 23 2 18.3 2 12.5 6.7 2 12.5 2zm0 19.5c5 0 9-4 9-9s-4-9-9-9-9 4-9 9 4 9 9 9z'/%3E%3Cpath fill='%23ffebcd' d='M12.5 4c4.7 0 8.5 3.8 8.5 8.5S17.2 21 12.5 21 4 17.2 4 12.5 7.8 4 12.5 4zm0 15c3.6 0 6.5-2.9 6.5-6.5S16.1 6 12.5 6 6 8.9 6 12.5 8.9 19 12.5 19z'/%3E%3C/svg%3E");
-            background-size: contain;
-            background-repeat: no-repeat;
-            width: 20px;
-            height: 20px;
-            opacity: 0.7;
-        }
-        
-        /* Animações para as pétalas */
-        @keyframes fall {
-            0% {
-                transform: translateY(-10%) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        @keyframes sway {
-            0% {
-                margin-left: 0;
-            }
-            25% {
-                margin-left: 15px;
-            }
-            50% {
-                margin-left: -10px;
-            }
-            75% {
-                margin-left: 5px;
-            }
-            100% {
-                margin-left: 0;
-            }
-        }
-        
-        /* Responsividade */
-        @media (max-width: 1024px) {
-            .poem-line { font-size: 1.8rem; }
-        }
-        
-        @media (max-width: 768px) {
-            .poem-line { font-size: 1.5rem; }
-            .poem-line:nth-child(4) { font-size: 1.4rem; }
-        }
-        
-        @media (max-width: 480px) {
-            .poem-line { font-size: 1.2rem; }
-            .poem-line:nth-child(4) { font-size: 1.1rem; margin-top: 20px; }
-        }
+       .petals-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    overflow: hidden;
+}
 
+.petal {
+    position: absolute;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23d32f2f' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    opacity: 0.7;
+}
+
+/* Animações para as pétalas */
+@keyframes fall {
+    0% {
+        transform: translateY(-10%) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes sway {
+    0% {
+        margin-left: 0;
+    }
+    25% {
+        margin-left: 15px;
+    }
+    50% {
+        margin-left: -10px;
+    }
+    75% {
+        margin-left: 5px;
+    }
+    100% {
+        margin-left: 0;
+    }
+}
 
     </style>
 </head>
@@ -1444,44 +1428,44 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
         }
     });
 
-     function createPetals() {
-            const petalsContainer = document.getElementById('petalsContainer');
-            const numberOfPetals = 25;
-            
-            for (let i = 0; i < numberOfPetals; i++) {
-                const petal = document.createElement('div');
-                petal.classList.add('petal');
-                
-                // Posição inicial aleatória
-                const startPosition = Math.random() * 100;
-                petal.style.left = `${startPosition}%`;
-                petal.style.top = '-5%';
-                
-                // Tamanho aleatório
-                const size = 10 + Math.random() * 15;
-                petal.style.width = `${size}px`;
-                petal.style.height = `${size}px`;
-                
-                // Opacidade aleatória
-                petal.style.opacity = 0.4 + Math.random() * 0.4;
-                
-                // Duração e delay aleatórios
-                const fallDuration = 10 + Math.random() * 20;
-                const fallDelay = Math.random() * 5;
-                const swayDuration = 3 + Math.random() * 4;
-                
-                // Aplicar animações
-                petal.style.animation = `
-                    fall ${fallDuration}s linear ${fallDelay}s infinite,
-                    sway ${swayDuration}s ease-in-out ${fallDelay}s infinite
-                `;
-                
-                petalsContainer.appendChild(petal);
-            }
-        }
+ function createPetals() {
+    const petalsContainer = document.getElementById('petalsContainer');
+    const numberOfPetals = 25;
+    
+    for (let i = 0; i < numberOfPetals; i++) {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
         
-        // Iniciar a animação das pétalas quando a página carregar
-        document.addEventListener('DOMContentLoaded', createPetals);
+        // Posição inicial aleatória
+        const startPosition = Math.random() * 100;
+        petal.style.left = `${startPosition}%`;
+        petal.style.top = '-5%';
+        
+        // Tamanho aleatório
+        const size = 15 + Math.random() * 20;
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size}px`;
+        
+        // Opacidade aleatória
+        petal.style.opacity = 0.4 + Math.random() * 0.4;
+        
+        // Duração e delay aleatórios
+        const fallDuration = 10 + Math.random() * 20;
+        const fallDelay = Math.random() * 5;
+        const swayDuration = 3 + Math.random() * 4;
+        
+        // Aplicar animações
+        petal.style.animation = `
+            fall ${fallDuration}s linear ${fallDelay}s infinite,
+            sway ${swayDuration}s ease-in-out ${fallDelay}s infinite
+        `;
+        
+        petalsContainer.appendChild(petal);
+    }
+}
+
+// Iniciar a animação das pétalas quando a página carregar
+document.addEventListener('DOMContentLoaded', createPetals);
 
     </script>
 </body>
