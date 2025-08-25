@@ -873,6 +873,145 @@
         z-index: -9999;
     }
 
+    /* Estilos para o poema */
+        .opening-poem {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeInPoem 3s forwards 1s;
+        }
+        
+        @keyframes fadeInPoem {
+            0% { opacity: 0; transform: translate(-50%, -40%); }
+            100% { opacity: 1; transform: translate(-50%, -50%); }
+        }
+        
+        .poem-line {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            transform: translateY(20px);
+            color: #fffbe6;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        
+        .poem-line:nth-child(1) {
+            animation: fadeInLine 1.5s forwards 1.5s, glow 3s infinite 3s;
+            color: #ffebcd;
+        }
+        
+        .poem-line:nth-child(2) {
+            animation: fadeInLine 1.5s forwards 2s, glow 3s infinite 3.5s;
+            color: #ffe4c4;
+        }
+        
+        .poem-line:nth-child(3) {
+            animation: fadeInLine 1.5s forwards 2.5s, glow 3s infinite 4s;
+            color: #ffdab9;
+        }
+        
+        .poem-line:nth-child(4) {
+            margin-top: 30px;
+            font-size: 1.8rem;
+            animation: fadeInLine 2s forwards 3.5s, glow 3s infinite 5s;
+            color: #f5deb3;
+            font-style: italic;
+        }
+        
+        @keyframes fadeInLine {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px rgba(255, 215, 0, 0.7), 2px 2px 8px rgba(0, 0, 0, 0.6); }
+            50% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 140, 0, 0.6), 2px 2px 8px rgba(0, 0, 0, 0.6); }
+            100% { text-shadow: 0 0 5px rgba(255, 215, 0, 0.7), 2px 2px 8px rgba(0, 0, 0, 0.6); }
+        }
+        
+        /* Container para as pétalas */
+        .petals-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            overflow: hidden;
+        }
+        
+        .petal {
+            position: absolute;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 25 25'%3E%3Cpath fill='%23ffebcd' d='M12.5 0C5.6 0 0 5.6 0 12.5S5.6 25 12.5 25 25 19.4 25 12.5 19.4 0 12.5 0zm0 23.5c-6.1 0-11-4.9-11-11s4.9-11 11-11 11 4.9 11 11-4.9 11-11 11z'/%3E%3Cpath fill='%23ffebcd' d='M12.5 2c5.8 0 10.5 4.7 10.5 10.5S18.3 23 12.5 23 2 18.3 2 12.5 6.7 2 12.5 2zm0 19.5c5 0 9-4 9-9s-4-9-9-9-9 4-9 9 4 9 9 9z'/%3E%3Cpath fill='%23ffebcd' d='M12.5 4c4.7 0 8.5 3.8 8.5 8.5S17.2 21 12.5 21 4 17.2 4 12.5 7.8 4 12.5 4zm0 15c3.6 0 6.5-2.9 6.5-6.5S16.1 6 12.5 6 6 8.9 6 12.5 8.9 19 12.5 19z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+        
+        /* Animações para as pétalas */
+        @keyframes fall {
+            0% {
+                transform: translateY(-10%) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes sway {
+            0% {
+                margin-left: 0;
+            }
+            25% {
+                margin-left: 15px;
+            }
+            50% {
+                margin-left: -10px;
+            }
+            75% {
+                margin-left: 5px;
+            }
+            100% {
+                margin-left: 0;
+            }
+        }
+        
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .poem-line { font-size: 1.8rem; }
+        }
+        
+        @media (max-width: 768px) {
+            .poem-line { font-size: 1.5rem; }
+            .poem-line:nth-child(4) { font-size: 1.4rem; }
+        }
+        
+        @media (max-width: 480px) {
+            .poem-line { font-size: 1.2rem; }
+            .poem-line:nth-child(4) { font-size: 1.1rem; margin-top: 20px; }
+        }
+
 
     </style>
 </head>
@@ -880,16 +1019,17 @@
     <!-- Hero Section com Foto em Destaque -->
     <section class="hero-section">
         <img src="https://i.ibb.co/gMz70WW0/0d311ba1-f81f-406e-b2d1-b4c22e86ce37.jpg" alt="Tierry e Luana" class="hero-photo">
+        
+        <!-- Container para as pétalas -->
+        <div class="petals-container" id="petalsContainer"></div>
+        
         <div class="hero-overlay">
-
-             <!-- Poema de abertura -->
-        <div class="opening-poem">
-            <div class="poem-line">Dois corações que se encontraram,</div>
-            <div class="poem-line">duas almas que se uniram,</div>
-            <div class="poem-line">um amor que se fortaleceu...</div>
-            <div class="poem-line">É com imensa alegria que convidamos você para celebrar conosco o nosso casamento.</div>
-        </div>
-          
+            <!-- Poema de abertura -->
+            <div class="opening-poem">
+                <div class="poem-line">Dois corações que se encontraram,</div>
+                <div class="poem-line">duas almas que se uniram,</div>
+                <div class="poem-line">um amor que se fortaleceu...</div>
+                <div class="poem-line">É com imensa alegria que convidamos você para celebrar conosco o nosso casamento.</div>
             </div>
         </div>
     </section>
@@ -1303,6 +1443,45 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
             sessionStorage.removeItem('continueVideo');
         }
     });
+
+     function createPetals() {
+            const petalsContainer = document.getElementById('petalsContainer');
+            const numberOfPetals = 25;
+            
+            for (let i = 0; i < numberOfPetals; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                
+                // Posição inicial aleatória
+                const startPosition = Math.random() * 100;
+                petal.style.left = `${startPosition}%`;
+                petal.style.top = '-5%';
+                
+                // Tamanho aleatório
+                const size = 10 + Math.random() * 15;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+                
+                // Opacidade aleatória
+                petal.style.opacity = 0.4 + Math.random() * 0.4;
+                
+                // Duração e delay aleatórios
+                const fallDuration = 10 + Math.random() * 20;
+                const fallDelay = Math.random() * 5;
+                const swayDuration = 3 + Math.random() * 4;
+                
+                // Aplicar animações
+                petal.style.animation = `
+                    fall ${fallDuration}s linear ${fallDelay}s infinite,
+                    sway ${swayDuration}s ease-in-out ${fallDelay}s infinite
+                `;
+                
+                petalsContainer.appendChild(petal);
+            }
+        }
+        
+        // Iniciar a animação das pétalas quando a página carregar
+        document.addEventListener('DOMContentLoaded', createPetals);
 
     </script>
 </body>
