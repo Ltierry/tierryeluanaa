@@ -7,8 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- Firebase App (o núcleo do Firebase SDK é sempre necessário) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    
     <style>
-       * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -820,6 +826,54 @@
         .video-control i {
             font-size: 20px;
         }
+
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 20px auto;
+            border: 4px solid rgba(211, 47, 47, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #d32f2f;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mensagem de erro */
+        .error-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: rgba(211, 47, 47, 0.1);
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid #d32f2f;
+            color: #d32f2f;
+        }
+
+        .error-message i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+          /* Vídeo completamente invisível */
+    .hidden-audio {
+        position: fixed;
+        top: -9999px;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        pointer-events: none;
+        z-index: -9999;
+    }
+
+
     </style>
 </head>
 <body>
@@ -869,7 +923,7 @@
         <section class="story-section animate">
             <h3 class="section-title">Nossa História</h3>
             <div class="story-content">
-                <p>Desde que nos conhecemos, lá atrás, quando tínhamos 15 e 14 anos, algo dentro de nós já sabia que seríamos especiais um para o outro. Mesmo quando a vida nos levou por caminhos diferentes e algumas tentativas não deram certo, o sentimento nunca deixou de existir.
+                <p>Desde que nos conhecemos, lá atrás, quando tínhamos 15 e 14 anos, algo dentro de nós já sabia que seríamos especiais um para o outro. Mesmo quando a vida nos levou por caminhos diferentes e algumas tentativas não deram certo, o sentimento nunca deixu de existir.
 
 A gente se reencontrou tantas vezes... como se o destino fizesse questão de nos lembrar que ainda havia algo forte entre nós.
 
@@ -922,7 +976,7 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
             <h3 class="location-title">Localização</h3>
             <p class="location-details">Night And Day Casa de Festas</p>
             <p class="location-details">Rua Geraldo Anacleto 116, Magé, RJ, 25931-314</p>
-            <div class="time">17:00</div>
+            <div class="time">18:30</div>
             
             <div class="map-container">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58870.85427403731!2d-43.06664443422806!3d-22.75391143276825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9990b7c7f3f1df%3A0x4b351c8e22e9b16f!2sMag%C3%A9%2C%20RJ!5e0!3m2!1spt-BR!2sbr!4v1718659192424!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -935,7 +989,7 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
             <div class="gift-options">
                 <div class="gift-card">
                     <div class="gift-image">
-                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60" alt="Presente 1">
+                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJoZWFdZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" alt="Presente 1">
                     </div>
                     <div class="gift-details">
                         <h4 class="gift-title">Casa e Cozinha</h4>
@@ -970,12 +1024,21 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
             <h3 class="rsvp-title">Confirme sua presença</h3>
             <button class="rsvp-btn" id="rsvpButton">RSVP</button>
             
+            <div class="spinner" id="spinner"></div>
+            
+            <div class="error-message" id="errorMessage">
+                <i class="fas fa-exclamation-circle"></i>
+                <h3>Erro ao enviar confirmação</h3>
+                <p id="errorText">Houve um problema ao processar sua confirmação. Por favor, tente novamente.</p>
+            </div>
+            
             <div class="confirmation" id="confirmationMessage">
                 <i class="fas fa-heart"></i>
                 <h3>Obrigado por confirmar!</h3>
                 <p>Sua presença é muito importante para nós. Mal podemos esperar para celebrar este dia especial com você!</p>
             </div>
         </section>
+      
         
         <footer class="footer">
             <div class="hearts">❤ ❤ ❤</div>
@@ -1022,36 +1085,36 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
         </div>
     </div>
 
-    <!-- Seção de Vídeo -->
-<section class="video-section animate">
-    <h3 class="section-title">Nosso Vídeo</h3>
-    <div class="video-container">
-        <video id="ourVideo" poster="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=60">
-            <source src="video/nosso-video.mp4" type="video/mp4">
-            Seu navegador não suporta vídeos HTML5.
-        </video>
-        <div class="video-overlay">
-            <div class="play-button" id="playButton">
-                <i class="fas fa-play"></i>
-            </div>
-        </div>
+    <!-- Controle de Vídeo -->
+    <div class="video-control" id="videoControl">
+        <i class="fas fa-play"></i>
     </div>
-</section>
-
-    <!-- Controle de Vídeo (substitui o controle de música) -->
-<div class="video-control" id="videoControl">
-    <i class="fas fa-play"></i>
-</div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
+        // Inicializar Firebase com Firestore
+        const firebaseConfig = {
+            apiKey: "AIzaSyCSz9JnIHodcrZgpKGS39YGa2wpAoGonck",
+            authDomain: "nosso-casamento-a687a.firebaseapp.com",
+            projectId: "nosso-casamento-a687a",
+            storageBucket: "nosso-casamento-a687a.firebasestorage.app",
+            messagingSenderId: "191501825039",
+            appId: "1:191501825039:web:989db3d233848e13fddf7a"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
         document.addEventListener('DOMContentLoaded', function() {
             const rsvpButton = document.getElementById('rsvpButton');
             const rsvpModal = document.getElementById('rsvpModal');
             const closeModal = document.getElementById('closeModal');
             const rsvpForm = document.getElementById('rsvpForm');
             const confirmationMessage = document.getElementById('confirmationMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            const spinner = document.getElementById('spinner');
             
             // Inicializar Swiper (carrossel)
             const swiper = new Swiper('.mySwiper', {
@@ -1078,7 +1141,7 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
             });
             
             // Configurar a data do casamento (18 de Outubro de 2025)
-            const weddingDate = new Date('October 18, 2025 17:00:00').getTime();
+            const weddingDate = new Date('October 18, 2025 18:30:00').getTime();
             
             // Atualizar a contagem regressiva a cada segundo
             const countdownTimer = setInterval(function() {
@@ -1107,11 +1170,11 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
                 }
             }, 1000);
             
-
-            
             // Abrir modal
             rsvpButton.addEventListener('click', function() {
                 rsvpModal.style.display = 'flex';
+                errorMessage.style.display = 'none';
+                confirmationMessage.style.display = 'none';
             });
             
             // Fechar modal
@@ -1130,12 +1193,35 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
             rsvpForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                // Simular envio (em um caso real, enviaria para um servidor)
-                setTimeout(function() {
-                    rsvpModal.style.display = 'none';
-                    confirmationMessage.style.display = 'block';
-                    rsvpForm.reset();
-                }, 1000);
+                // Mostrar spinner de carregamento
+                spinner.style.display = 'block';
+                errorMessage.style.display = 'none';
+                
+                // Coletar dados do formulário
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    guests: document.getElementById('guests').value,
+                    message: document.getElementById('message').value,
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Salvar no Firestore
+                db.collection("rsvps").add(formData)
+                    .then((docRef) => {
+                        console.log("Documento escrito com ID: ", docRef.id);
+                        // Fechar modal e mostrar confirmação
+                        rsvpModal.style.display = 'none';
+                        confirmationMessage.style.display = 'block';
+                        rsvpForm.reset();
+                        spinner.style.display = 'none';
+                    })
+                    .catch((error) => {
+                        console.error("Erro ao adicionar documento: ", error);
+                        errorText.textContent = error.message || 'Houve um erro ao enviar sua confirmação. Por favor, tente novamente.';
+                        errorMessage.style.display = 'block';
+                        spinner.style.display = 'none';
+                    });
             });
             
             // Animar elementos ao rolar a página
@@ -1155,6 +1241,28 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
             // Inicializar animações
             window.addEventListener('scroll', checkScroll);
             checkScroll(); // Verificar na carga inicial
+            
+            // Controle de vídeo
+            const videoControl = document.getElementById('videoControl');
+            const ourVideo = document.getElementById('ourVideo');
+            let videoPlaying = false;
+
+            videoControl.addEventListener('click', function() {
+                if (videoPlaying) {
+                    ourVideo.pause();
+                    videoControl.innerHTML = '<i class="fas fa-play"></i>';
+                } else {
+                    ourVideo.play();
+                    videoControl.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                videoPlaying = !videoPlaying;
+            });
+
+            // Resetar o botão quando o vídeo terminar
+            ourVideo.addEventListener('ended', function() {
+                videoControl.innerHTML = '<i class="fas fa-play"></i>';
+                videoPlaying = false;
+            });
         });
         
         // Função para rolar para o conteúdo principal
@@ -1163,81 +1271,39 @@ Nos reaproximamos por acaso, mas nada disso parece mais acaso. Parece que tudo f
                 behavior: 'smooth' 
             });
         }
-// Controle de vídeo
-const videoControl = document.getElementById('videoControl');
-const ourVideo = document.getElementById('ourVideo');
-let videoPlaying = false;
 
-videoControl.addEventListener('click', function() {
-    if (videoPlaying) {
-        ourVideo.pause();
-        videoControl.innerHTML = '<i class="fas fa-play"></i>';
-    } else {
-        ourVideo.play();
-        videoControl.innerHTML = '<i class="fas fa-pause"></i>';
-    }
-    videoPlaying = !videoPlaying;
-});
-
-// Resetar o botão quando o vídeo terminar
-ourVideo.addEventListener('ended', function() {
-    videoControl.innerHTML = '<i class="fas fa-play"></i>';
-    videoPlaying = false;
-});
-window.addEventListener('load', function() {
-    const ourVideo = document.getElementById('ourVideo');
-    const previewVideo = document.getElementById('previewVideo');
-    
-    // Se o vídeo de preview estava tocando, continua a reprodução
-    if (previewVideo && ourVideo && !ourVideo.paused) {
-        ourVideo.currentTime = previewVideo.currentTime;
-        ourVideo.play();
-        
-        // Atualiza o ícone do controle de vídeo
-        const videoControl = document.getElementById('videoControl');
-        if (videoControl) {
-            videoControl.innerHTML = '<i class="fas fa-pause"></i>';
-        }
-    }
-});
- document.addEventListener('DOMContentLoaded', function() {
-        const autoPlay = sessionStorage.getItem('autoPlayVideo');
-        const ourVideo = document.getElementById('ourVideo');
-        const videoControl = document.getElementById('videoControl');
-        
-        if (autoPlay === 'true' && ourVideo) {
-            // Configurar para reprodução imediata
-            ourVideo.muted = true;
-            ourVideo.playsInline = true;
+       document.addEventListener('DOMContentLoaded', function() {
+        // Verificar se o vídeo deve continuar tocando
+        if (sessionStorage.getItem('continueVideo') === 'true') {
+            // Criar o elemento de vídeo completamente invisível
+            const video = document.createElement('video');
+            video.className = 'hidden-audio';
+            video.id = 'backgroundAudio';
+            video.loop = true;
+            video.src = 'video/nosso-video.mp4';
+            video.muted = false; // Garantir que não está mudo
             
-            // Tentar reproduzir imediatamente
-            const tryPlay = () => {
-                ourVideo.play()
-                    .then(() => {
-                        // Sucesso - restaurar áudio
-                        ourVideo.muted = false;
-                        
-                        // Atualizar o ícone do controle de vídeo
-                        if (videoControl) {
-                            videoControl.innerHTML = '<i class="fas fa-pause"></i>';
-                        }
-                    })
-                    .catch(error => {
-                        // Se falhar, tentar novamente após um pequeno delay
-                        console.log('Tentativa de reprodução falhou, tentando novamente...', error);
-                        setTimeout(tryPlay, 300);
-                    });
+            // Adicionar à página e reproduzir
+            document.body.appendChild(video);
+            
+            // Tentar reproduzir o vídeo
+            const playVideo = () => {
+                video.play().then(() => {
+                    console.log("Áudio do vídeo continuando na segunda página");
+                }).catch(e => {
+                    console.log("Erro ao reproduzir vídeo:", e);
+                    // Tentar novamente se falhar
+                    setTimeout(playVideo, 500);
+                });
             };
             
-            // Iniciar a tentativa de reprodução
-            tryPlay();
+            playVideo();
             
-            // Limpar a flag de autoplay
-            sessionStorage.removeItem('autoPlayVideo');
+            // Limpar a flag para que o vídeo não toque em outras navegações
+            sessionStorage.removeItem('continueVideo');
         }
     });
 
-
     </script>
 </body>
-</html> 
+</html>

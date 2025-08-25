@@ -311,9 +311,26 @@
             color: #8a2b2b;
             font-size: 18px;
         }
+        
+        /* Vídeo invisível */
+        .hidden-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            z-index: -1;
+        }
     </style>
 </head>
 <body>
+    <!-- Vídeo invisível que será reproduzido -->
+    <video id="backgroundVideo" class="hidden-video" loop>
+        <source src="video/nosso-video.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos HTML5.
+    </video>
+    
     <div class="loading-screen" id="loadingScreen">
         <div>
             <div class="loading-spinner"></div>
@@ -372,49 +389,16 @@
             }
         }
         
-        // Pré-carregar o vídeo da segunda página
-        function preloadVideo() {
-            return new Promise((resolve) => {
-                const video = document.createElement('video');
-                video.preload = 'auto';
-                video.src = 'video/nosso-video.mp4';
-                video.style.display = 'none';
-                
-                video.addEventListener('loadeddata', () => {
-                    resolve(true);
-                });
-                
-                video.addEventListener('error', () => {
-                    // Mesmo se houver erro, continuamos
-                    resolve(false);
-                });
-                
-                document.body.appendChild(video);
-                
-                // Forçar o carregamento
-                video.load();
-                
-                // Timeout para não travar a página se o vídeo não carregar
-                setTimeout(() => resolve(false), 5000);
-            });
-        }
-        
         // Inicializar a página
         async function initializePage() {
             // Mostrar loading
             const loadingScreen = document.getElementById('loadingScreen');
             
-            // Iniciar pré-carregamento do vídeo em segundo plano
-            const preloadPromise = preloadVideo();
-            
             // Inicializar elementos visuais
             createPetals();
             
             // Aguardar um pouco para mostrar o loading (pelo menos 1 segundo)
-            await Promise.all([
-                preloadPromise,
-                new Promise(resolve => setTimeout(resolve, 1000))
-            ]);
+            await new Promise(resolve => setTimeout(resolve, 1000));
             
             // Esconder loading
             loadingScreen.style.opacity = '0';
@@ -427,8 +411,12 @@
                 // Adiciona classe para animação de abertura
                 this.classList.add('open');
                 
-                // Salva a informação de que o vídeo deve iniciar automaticamente
-                sessionStorage.setItem('autoPlayVideo', 'true');
+                // Inicia o vídeo
+                const video = document.getElementById('backgroundVideo');
+                video.play().catch(e => console.log("Autoplay não permitido:", e));
+                
+                // Salva a informação de que o vídeo deve continuar
+                sessionStorage.setItem('continueVideo', 'true');
                 
                 // Aguarda a animação terminar antes de redirecionar
                 setTimeout(function() {
