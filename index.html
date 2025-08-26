@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Convite de Casamento - Luana & Tierry</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -15,403 +15,388 @@
         
         body {
             font-family: 'Cormorant Garamond', serif;
-            background: linear-gradient(to bottom, #fdf8f2 0%, #f9f2e8 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            color: #5c3e2a;
+            background-color: #fcf9f5;
+            color: #4a3c2a;
+            line-height: 1.6;
             overflow-x: hidden;
         }
         
-        .container {
-            width: 100%;
-            max-width: 700px;
+        .elegant-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header elegante */
+        .elegant-header {
             text-align: center;
+            padding: 60px 20px;
             position: relative;
+            background: linear-gradient(rgba(252, 249, 245, 0.9), rgba(252, 249, 245, 0.9)), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%23d4c1a0" stroke-width="2" stroke-dasharray="5,5"/></svg>');
+            background-size: 30px 30px;
         }
         
-        .header {
-            margin-bottom: 30px;
-            opacity: 0;
-            animation: fadeIn 1.5s ease forwards 0.5s;
-        }
-        
-        .header h1 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
-            font-size: 28px;
-            letter-spacing: 8px;
-            color: #a52a2a;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-        
-        .header p {
-            font-size: 18px;
-            font-style: italic;
-            color: #8b4513;
-        }
-        
-        .envelope-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto 40px;
-            perspective: 1200px;
-        }
-        
-        .envelope {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 65%;
-            transition: transform 0.6s ease;
-        }
-        
-        .envelope-inner {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transition: transform 1s;
-            transform-style: preserve-3d;
-            cursor: pointer;
-        }
-        
-        .envelope:hover .envelope-inner {
-            transform: rotateY(180deg);
-        }
-        
-        .envelope-front, .envelope-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(139, 0, 0, 0.22);
-        }
-        
-        .envelope-front {
-            background: linear-gradient(135deg, #e6c9a1 0%, #a52a2a 100%);
-            border: 2px solid #8b4513;
-            z-index: 2;
-        }
-        
-        .envelope-back {
-            background: linear-gradient(to bottom, #fefaf4 0%, #fcf7f0 100%);
-            transform: rotateY(180deg);
-            padding: 30px;
-            border: 1px solid #d4a972;
-        }
-        
-        .flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 40%;
-            background: linear-gradient(to bottom right, #8b0000 0%, #a52a2a 100%);
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            z-index: 3;
-            transition: transform 0.8s ease-in-out;
-            transform-origin: top;
-            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .envelope:hover .flap {
-            transform: rotateX(180deg);
-        }
-        
-        .seal {
-            width: 90px;
-            height: 90px;
-            background: radial-gradient(circle at 30% 30%, #d4a972 0%, #a52a2a 100%);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            border: 3px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 0 20px rgba(164, 84, 39, 0.6);
-            position: relative;
-            z-index: 4;
-            transition: all 0.5s ease;
-            cursor: pointer;
-            overflow: hidden;
-        }
-        
-        .seal:before {
-            content: '';
-            position: absolute;
-            width: 120%;
-            height: 120%;
-            background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
-            transform: rotate(45deg);
-            top: -80%;
-            left: -10%;
-        }
-        
-        .seal:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(164, 84, 39, 0.8);
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .names {
-            color: white;
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            letter-spacing: 3px;
-            margin-top: 30px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            color: #8c6d46;
+            text-transform: uppercase;
             position: relative;
-            z-index: 2;
-            font-weight: 500;
+            display: inline-block;
+            padding-bottom: 20px;
         }
         
-        .ornament {
+        .names:after {
+            content: "";
             position: absolute;
-            width: 100%;
-            height: 25px;
             bottom: 0;
-            background: repeating-linear-gradient(
-                45deg,
-                #d4a972,
-                #d4a972 10px,
-                #a52a2a 10px,
-                #a52a2a 20px
-            );
-            z-index: 2;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #d4c1a0, transparent);
         }
         
-        .floral-decoration {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23a52a2a' fill-opacity='0.15' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'%3E%3C/path%3E%3C/svg%3E");
-            opacity: 0.2;
-            z-index: 1;
+        .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            color: #7a6650;
+            text-transform: uppercase;
         }
         
-        .envelope-content {
-            width: 100%;
-            height: 100%;
+        .date-display {
+            font-size: 1.8rem;
+            margin: 30px 0;
+            color: #8c6d46;
+            font-style: italic;
+        }
+        
+        /* Seção principal */
+        .main-invitation {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 600px;
+            margin: 40px 0;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+            background: white;
+        }
+        
+        .invitation-image {
+            flex: 1;
+            min-width: 300px;
+            background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><path fill="%23d4c1a0" d="M45,50a5,5 0 1,1 10,0a5,5 0 1,1 -10,0"/><path fill="%23d4c1a0" d="M145,150a5,5 0 1,1 10,0a5,5 0 1,1 -10,0"/><path fill="%23d4c1a0" d="M45,150a5,5 0 1,1 10,0a5,5 0 1,1 -10,0"/><path fill="%23d4c1a0" d="M145,50a5,5 0 1,1 10,0a5,5 0 1,1 -10,0"/></svg>');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .invitation-details {
+            flex: 1;
+            min-width: 300px;
+            padding: 60px 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            padding: 20px;
+            position: relative;
+        }
+        
+        .ornamental-border {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid #e8ddd0;
+            pointer-events: none;
+        }
+        
+        .detail-item {
+            margin-bottom: 30px;
             text-align: center;
         }
         
-        .envelope-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            color: #a52a2a;
-            margin-bottom: 15px;
-            font-weight: 500;
-            letter-spacing: 1px;
+        .detail-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            color: #a08e75;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
         
-        .envelope-content p {
-            font-size: 19px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            color: #5c3e2a;
+        .detail-content {
+            font-size: 1.4rem;
+            color: #4a3c2a;
         }
         
-        .instructions {
-            margin: 20px 0;
-            color: #a52a2a;
-            font-size: 18px;
-            font-style: italic;
-            font-weight: 500;
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e8ddd0, transparent);
+            width: 80%;
+            margin: 30px auto;
         }
         
-        .invitation-link {
-            display: inline-flex;
-            align-items: center;
-            margin-top: 20px;
-            padding: 14px 35px;
-            background: linear-gradient(to right, #a52a2a 0%, #8b0000 100%);
-            color: white;
+        /* Botão de confirmação */
+        .rsvp-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: transparent;
+            color: #8c6d46;
+            border: 1px solid #d4c1a0;
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 18px;
-            transition: all 0.4s ease;
-            box-shadow: 0 5px 15px rgba(165, 42, 42, 0.4);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            z-index: 1;
+            margin-top: 20px;
         }
         
-        .invitation-link:before {
-            content: '';
+        .rsvp-button:before {
+            content: "";
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to right, #8b0000 0%, #a52a2a 100%);
+            background: linear-gradient(90deg, transparent, rgba(212, 193, 160, 0.2), transparent);
             transition: all 0.6s ease;
-            z-index: -1;
         }
         
-        .invitation-link:hover:before {
+        .rsvp-button:hover:before {
+            left: 100%;
+        }
+        
+        .rsvp-button:hover {
+            background-color: #f8f4ef;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Footer elegante */
+        .elegant-footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+        }
+        
+        .closing-message {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #7a6650;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .signature {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: #8c6d46;
+            margin-top: 40px;
+            position: relative;
+            display: inline-block;
+            padding: 0 30px;
+        }
+        
+        .signature:before, .signature:after {
+            content: "✦";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #d4c1a0;
+            font-size: 1.2rem;
+        }
+        
+        .signature:before {
             left: 0;
         }
         
-        .invitation-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(165, 42, 42, 0.5);
+        .signature:after {
+            right: 0;
         }
         
-        .invitation-link i {
-            margin-left: 10px;
-            transition: transform 0.3s ease;
+        /* Elementos decorativos */
+        .floral-decoration {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            opacity: 0.1;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%238c6d46" d="M50,20 A30,30 0 1,1 50,80 A30,30 0 1,1 50,20z M50,30 A20,20 0 1,0 50,70 A20,20 0 1,0 50,30z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
         }
         
-        .invitation-link:hover i {
-            transform: translateX(5px);
+        .decoration-top-left {
+            top: 20px;
+            left: 20px;
         }
         
-        .footer {
-            margin-top: 40px;
-            font-size: 16px;
-            color: #8b4513;
-            opacity: 0;
-            animation: fadeIn 1.5s ease forwards 1.5s;
+        .decoration-bottom-right {
+            bottom: 20px;
+            right: 20px;
+            transform: rotate(180deg);
         }
         
+        /* Animações suaves */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .envelope-wrapper {
+        .animate-element {
             opacity: 0;
-            animation: fadeIn 1.5s ease forwards 1s;
+            animation: fadeIn 1s ease forwards;
         }
         
-        .gold-line {
-            height: 2px;
-            width: 100px;
-            background: linear-gradient(to right, transparent, #d4a972, transparent);
-            margin: 20px auto;
-        }
+        .delay-1 { animation-delay: 0.3s; }
+        .delay-2 { animation-delay: 0.6s; }
+        .delay-3 { animation-delay: 0.9s; }
+        .delay-4 { animation-delay: 1.2s; }
         
-        @media (max-width: 600px) {
-            .envelope {
-                padding-bottom: 80%;
-            }
-            
-            .seal {
-                width: 70px;
-                height: 70px;
-                font-size: 14px;
-            }
-            
+        /* Responsividade */
+        @media (max-width: 768px) {
             .names {
-                font-size: 22px;
+                font-size: 3rem;
+                letter-spacing: 4px;
             }
             
-            .envelope-content h2 {
-                font-size: 24px;
+            .subtitle {
+                font-size: 1rem;
+                letter-spacing: 2px;
             }
             
-            .envelope-content p {
-                font-size: 17px;
+            .date-display {
+                font-size: 1.4rem;
             }
             
-            .invitation-link {
-                padding: 12px 25px;
-                font-size: 16px;
+            .detail-content {
+                font-size: 1.2rem;
+            }
+            
+            .invitation-details {
+                padding: 40px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .names {
+                font-size: 2.2rem;
+                letter-spacing: 3px;
+            }
+            
+            .main-invitation {
+                flex-direction: column;
+            }
+            
+            .invitation-image {
+                min-height: 300px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Luana & Tierry</h1>
-            <p>Convidam você para nosso casamento</p>
-        </div>
+    <div class="elegant-container">
+        <header class="elegant-header">
+            <div class="floral-decoration decoration-top-left"></div>
+            <div class="floral-decoration decoration-bottom-right"></div>
+            
+            <div class="header-content">
+                <h1 class="names animate-element">Luana & Tierry</h1>
+                <p class="subtitle animate-element delay-1">Temos a honra de anunciar o nosso casamento</p>
+                
+                <div class="date-display animate-element delay-2">
+                    <i class="far fa-calendar-alt"></i> 15 de Novembro de 2025
+                </div>
+            </div>
+        </header>
         
-        <div class="envelope-wrapper">
-            <div class="envelope">
-                <div class="envelope-inner">
-                    <div class="envelope-front">
-                        <div class="floral-decoration"></div>
-                        <div class="flap"></div>
-                        <div class="seal">Abrir</div>
-                        <div class="names">Luana & Tierry</div>
-                        <div class="ornament"></div>
-                    </div>
-                    <div class="envelope-back">
-                        <div class="floral-decoration"></div>
-                        <div class="envelope-content">
-                            <h2>Você está convidado</h2>
-                            <div class="gold-line"></div>
-                            <p>Para celebrar a união de</p>
-                            <p><strong>Luana & Tierry</strong></p>
-                            <p class="instructions">Clique no botão abaixo para ver nosso convite completo</p>
-                            <a href="convite.html" class="invitation-link" id="conviteLink">
-                                Abrir Convite <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
+        <div class="main-invitation">
+            <div class="invitation-image">
+                <!-- Imagem seria colocada aqui -->
+            </div>
+            
+            <div class="invitation-details">
+                <div class="ornamental-border"></div>
+                
+                <div class="detail-item animate-element">
+                    <div class="detail-title">Data e Hora</div>
+                    <div class="detail-content">15 de Novembro de 2025 às 16h</div>
+                </div>
+                
+                <div class="detail-item animate-element delay-1">
+                    <div class="detail-title">Localização</div>
+                    <div class="detail-content">Fazenda Santa Maria<br>Rodovia dos Bandeirantes, KM 85<br>São Paulo - SP</div>
+                </div>
+                
+                <div class="detail-item animate-element delay-2">
+                    <div class="detail-title">Traje</div>
+                    <div class="detail-content">Esporte fino</div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="animate-element delay-3">
+                    <a href="#rsvp" class="rsvp-button">Confirmar Presença</a>
                 </div>
             </div>
         </div>
         
-        <div class="footer">
-            <p>Com amor, Luana & Tierry · 2025</p>
-        </div>
+        <footer class="elegant-footer">
+            <p class="closing-message animate-element">
+                "O amor não se vê com os olhos, mas com o coração. Por isso é que os Cupidos são pintados cegos."
+                <br>- William Shakespeare
+            </p>
+            
+            <div class="signature animate-element delay-1">
+                Com amor, Luana & Tierry
+            </div>
+        </footer>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const envelope = document.querySelector('.envelope');
-            const seal = document.querySelector('.seal');
-            const conviteLink = document.getElementById('conviteLink');
+            // Adiciona efeito de digitação no título
+            const names = document.querySelector('.names');
+            const originalText = names.textContent;
+            names.textContent = '';
             
-            // Adicionar efeito de clique no selo
-            seal.addEventListener('click', function(e) {
-                e.stopPropagation();
-                envelope.classList.toggle('open');
-            });
+            let i = 0;
+            function typeWriter() {
+                if (i < originalText.length) {
+                    names.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
             
-            // Adicionar efeito de clique no envelope
-            envelope.addEventListener('click', function() {
-                this.classList.toggle('open');
-            });
+            // Inicia a animação de digitação
+            setTimeout(typeWriter, 1000);
             
-            // Adicionar algumas partículas de confete no background
-            createParticles();
-            
-            // Adicionar parâmetro à URL para indicar que o vídeo deve iniciar automaticamente
-            conviteLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Redirecionar para a página do convite com parâmetro para autoplay
-                window.location.href = 'convite.html?autoplay=true';
-            });
+            // Adiciona partículas de efeito elegante
+            createElegantParticles();
         });
         
-        function createParticles() {
-            const colors = ['#a52a2a', '#d4a972', '#8b4513', '#f9f2e8'];
+        function createElegantParticles() {
+            const colors = ['#e8ddd0', '#d4c1a0', '#c8b090', '#f0e8d8'];
             
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 15; i++) {
                 const particle = document.createElement('div');
                 particle.style.position = 'fixed';
                 particle.style.width = '6px';
@@ -421,8 +406,9 @@
                 particle.style.top = Math.random() * 100 + 'vh';
                 particle.style.left = Math.random() * 100 + 'vw';
                 particle.style.opacity = '0';
+                particle.style.pointerEvents = 'none';
                 particle.style.zIndex = '-1';
-                particle.style.animation = `floatParticle 15s linear ${Math.random() * 5}s infinite`;
+                particle.style.animation = `floatParticle 20s linear ${Math.random() * 5}s infinite`;
                 document.body.appendChild(particle);
             }
             
@@ -430,17 +416,17 @@
             style.textContent = `
                 @keyframes floatParticle {
                     0% {
-                        transform: translateY(0) translateX(0);
+                        transform: translateY(0) translateX(0) rotate(0deg);
                         opacity: 0;
                     }
                     10% {
-                        opacity: 0.6;
-                    }
-                    90% {
                         opacity: 0.4;
                     }
+                    90% {
+                        opacity: 0.3;
+                    }
                     100% {
-                        transform: translateY(-100vh) translateX(${Math.random() * 100 - 50}px);
+                        transform: translateY(-100vh) translateX(${Math.random() * 100 - 50}px) rotate(360deg);
                         opacity: 0;
                     }
                 }

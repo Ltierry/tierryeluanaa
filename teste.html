@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite de Casamento | Tierry & Luana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #faf7f2;
+            color: #5a4c42;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header e Navegação */
+        header {
+            background: linear-gradient(to bottom, rgba(255,253,250,0.98) 90%, rgba(255,253,250,0.8)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="none" width="100" height="100"/><path fill="%23d4a373" opacity="0.2" d="M30,30 Q50,20 70,30 T90,40 L90,90 L10,90 L10,40 Q20,35 30,30Z"/></svg>');
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(90, 76, 66, 0.08);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #8e2a2a;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #5a4c42;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #8e2a2a;
+        }
+        
+        /* Seção Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(rgba(255, 253, 250, 0.7), rgba(255, 253, 250, 0.7)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="none" width="100" height="100"/><path fill="%23d4a373" opacity="0.2" d="M30,30 Q50,20 70,30 T90,40 L90,90 L10,90 L10,40 Q20,35 30,30Z"/></svg>');
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path fill="%238e2a2a" opacity="0.1" d="M20,20 Q30,15 40,20 T50,25 L50,50 L10,50 L10,25 Q15,22 20,20Z"/></svg>');
+            z-index: -1;
+        }
+        
+        .hero-names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 80px;
+            font-weight: 300;
+            color: #8e2a2a;
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+        
+        .hero-date {
+            font-size: 28px;
+            color: #5a4c42;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .hero-divider {
+            width: 100px;
+            height: 2px;
+            background-color: #d4a373;
+            margin: 30px auto;
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #8e2a2a;
+            font-size: 14px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-20px) translateX(-50%);}
+            60% {transform: translateY(-10px) translateX(-50%);}
+        }
+        
+        /* Seções Gerais */
+        section {
+            padding: 100px 20px;
+        }
+        
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #8e2a2a;
+            font-weight: 600;
+        }
+        
+        .section-divider {
+            width: 80px;
+            height: 2px;
+            background-color: #d4a373;
+            margin: 20px auto 40px;
+        }
+        
+        /* Nossa História */
+        .our-story {
+            background-color: #fff;
+        }
+        
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        
+        /* Detalhes do Casamento */
+        .wedding-details {
+            background: linear-gradient(to bottom, #faf7f2, #fff);
+        }
+        
+        .details-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .detail-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(90, 76, 66, 0.08);
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .detail-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .detail-icon {
+            font-size: 40px;
+            color: #d4a373;
+            margin-bottom: 20px;
+        }
+        
+        .detail-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #8e2a2a;
+        }
+        
+        .detail-text {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        /* Galeria */
+        .gallery {
+            background-color: #fff;
+        }
+        
+        .gallery-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .gallery-item {
+            width: 300px;
+            height: 300px;
+            background-color: #faf7f2;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(90, 76, 66, 0.1);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Confirmação de Presença */
+        .rsvp {
+            background: linear-gradient(rgba(255, 253, 250, 0.9), rgba(255, 253, 250, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="none" width="100" height="100"/><path fill="%23d4a373" opacity="0.2" d="M30,30 Q50,20 70,30 T90,40 L90,90 L10,90 L10,40 Q20,35 30,30Z"/></svg>');
+            text-align: center;
+        }
+        
+        .rsvp-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(90, 76, 66, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #5a4c42;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0d9d0;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            color: #5a4c42;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #d4a373;
+            outline: none;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #8e2a2a;
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #6d1f1f;
+        }
+        
+        /* Mapa */
+        .map {
+            padding: 60px 20px;
+            background-color: #faf7f2;
+        }
+        
+        .map-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(90, 76, 66, 0.15);
+            height: 400px;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #8e2a2a;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .footer-text {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        
+        .footer-signature {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            margin-top: 40px;
+        }
+        
+        /* Efeitos de Animação */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .hero-names {
+                font-size: 50px;
+            }
+            
+            .hero-date {
+                font-size: 20px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .detail-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo"><i class="fas fa-ring"></i> Tierry & Luana</a>
+                <ul class="nav-links">
+                    <li><a href="#nossa-historia">Nossa História</a></li>
+                    <li><a href="#detalhes">Detalhes</a></li>
+                    <li><a href="#galeria">Galeria</a></li>
+                    <li><a href="#confirmacao">Confirmação</a></li>
+                    <li><a href="#localizacao">Localização</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1 class="hero-names">Tierry & Luana</h1>
+        <div class="hero-divider"></div>
+        <p class="hero-date">18 de Outubro de 2025 • 18:30</p>
+        <p>Night And Day Casa de Festas</p>
+        <div class="scroll-down">Role para baixo <i class="fas fa-chevron-down"></i></div>
+    </section>
+
+    <section id="nossa-historia" class="our-story">
+        <div class="container">
+            <h2 class="section-title">Nossa História</h2>
+            <div class="section-divider"></div>
+            <div class="story-content fade-in">
+                <p>Nosso amor começou em uma simples tarde de outono, quando nossos caminhos se cruzaram de forma inesperada. Desde aquele primeiro olhar, sabíamos que algo especial havia começado.</p>
+                <p>Foram anos de risadas, aprendizados, apoio mútuo e crescimento juntos. Cada momento compartilhado nos levou a este dia especial, onde oficializaremos nossa união perante Deus, nossa família e amigos.</p>
+                <p>É com imensa alegria que convidamos você para celebrar conosco este marco tão significativo em nossas vidas.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="detalhes" class="wedding-details">
+        <div class="container">
+            <h2 class="section-title">Detalhes do Casamento</h2>
+            <div class="section-divider"></div>
+            <div class="details-container">
+                <div class="detail-card fade-in">
+                    <div class="detail-icon">
+                        <i class="far fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="detail-title">Data e Hora</h3>
+                    <p class="detail-text">18 de Outubro de 2025<br>Às 18:30 horas</p>
+                </div>
+                
+                <div class="detail-card fade-in">
+                    <div class="detail-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <h3 class="detail-title">Cerimônia e Recepção</h3>
+                    <p class="detail-text">Night And Day Casa de Festas<br>Rua Geraldo Anacleto 116, Magé, RJ</p>
+                </div>
+                
+                <div class="detail-card fade-in">
+                    <div class="detail-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="detail-title">Paleta de Cores</h3>
+                    <p class="detail-text">Vermelho, branco e chá<br>Pedimos que evitem essas cores na vestimenta</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeria" class="gallery">
+        <div class="container">
+            <h2 class="section-title">Nossos Momentos</h2>
+            <div class="section-divider"></div>
+            <div class="gallery-container">
+                <div class="gallery-item fade-in">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'><rect width='300' height='300' fill='%23faf7f2'/><text x='150' y='150' font-family='Arial' font-size='20' fill='%235a4c42' text-anchor='middle'>Foto do Casal 1</text></svg>" alt="Tierry e Luana">
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'><rect width='300' height='300' fill='%23faf7f2'/><text x='150' y='150' font-family='Arial' font-size='20' fill='%235a4c42' text-anchor='middle'>Foto do Casal 2</text></svg>" alt="Tierry e Luana">
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'><rect width='300' height='300' fill='%23faf7f2'/><text x='150' y='150' font-family='Arial' font-size='20' fill='%235a4c42' text-anchor='middle'>Foto do Casal 3</text></svg>" alt="Tierry e Luana">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="confirmacao" class="rsvp">
+        <div class="container">
+            <h2 class="section-title">Confirmação de Presença</h2>
+            <div class="section-divider"></div>
+            <div class="rsvp-form fade-in">
+                <form id="rsvpForm">
+                    <div class="form-group">
+                        <label for="name">Nome completo</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="guests">Número de acompanhantes</label>
+                        <select id="guests">
+                            <option value="0">Nenhum</option>
+                            <option value="1">1 acompanhante</option>
+                            <option value="2">2 acompanhantes</option>
+                            <option value="3">3 acompanhantes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem para os noivos</label>
+                        <textarea id="message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Confirmar Presença</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="localizacao" class="map">
+        <div class="container">
+            <h2 class="section-title">Localização</h2>
+            <div class="section-divider"></div>
+            <div class="map-container fade-in">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.328554920896!2d-43.0418233246873!3d-22.753705132332936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9990d37789df1b%3A0x4d733f911a20e7c2!2sRua%20Geraldo%20Anacleto%2C%20116%20-%20Centro%2C%20Mag%C3%A9%20-%20RJ%2C%2025931-314!5e0!3m2!1spt-BR!2sbr!4v1685489766783!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="footer-text">Sua presença é o melhor presente que poderíamos receber neste dia tão especial!</p>
+            <p>Com amor,</p>
+            <p class="footer-signature">Tierry & Luana</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animação de aparecimento ao rolar
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOptions = {
+                threshold: 0.3,
+                rootMargin: "0px 0px -50px 0px"
+            };
+            
+            const fadeInObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, fadeInOptions);
+            
+            fadeElements.forEach(element => {
+                fadeInObserver.observe(element);
+            });
+            
+            // Form submission
+            document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Obrigado por confirmar sua presença! Entraremos em contato em breve.');
+                this.reset();
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
