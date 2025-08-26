@@ -1356,12 +1356,7 @@
             <p class="location-details">Night And Day Casa de Festas</p>
             <p class="location-details">Rua Geraldo Anacleto 116, Magé, RJ, 25931-314</p>
             <div class="time">18:30</div>
-            
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58870.85427403731!2d-43.06664443422806!3d-22.75391143276825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9990b7c7f3f1df%3A0x4b351c8e22e9b16f!2sMag%C3%A9%2C%20RJ!5e0!3m2!1spt-BR!2sbr!4v1718659192424!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </section>
-        
+
         <!-- Lista de Presentes -->
         <section class="gifts-section animate">
             <h3 class="section-title">Lista de Presentes</h3>
@@ -1422,10 +1417,10 @@
 <section class="video-section animate">
     <h3 class="section-title">Nosso Vídeo</h3>
     <div class="video-container">
-        <video id="ourVideo" controls>
-            <source src="video/nosso-video.mp4" type="video/mp4">
-            Seu navegador não suporta vídeos HTML5.
-        </video>
+      <video id="ourVideo" controls>
+    <source src="video/nosso-video.mp4" type="video/mp4">
+    Seu navegador não suporta vídeos HTML5.
+</video>
     </div>
 </section>
 
@@ -1506,6 +1501,25 @@
         const db = firebase.firestore();
         
         document.addEventListener('DOMContentLoaded', function() {
+
+            // Verificar se o parâmetro autoplay está presente na URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const autoplay = urlParams.get('autoplay');
+        
+        if (autoplay === 'true') {
+            // Encontrar o elemento de vídeo e reproduzir
+            const videoElement = document.getElementById('ourVideo');
+            if (videoElement) {
+                // Esperar um pouco para garantir que o vídeo esteja carregado
+                setTimeout(function() {
+                    videoElement.play().catch(function(error) {
+                        console.log('Autoplay não permitido pelo navegador:', error);
+                        // Em alguns navegadores, pode ser necessário interação do usuário
+                    });
+                }, 1000);
+            }
+        }
+    
             const rsvpButton = document.getElementById('rsvpButton');
             const rsvpModal = document.getElementById('rsvpModal');
             const closeModal = document.getElementById('closeModal');

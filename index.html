@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Envelope para Convite de Casamento</title>
+    <title>Convite de Casamento - Luana & Tierry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,35 +14,67 @@
         }
         
         body {
-            font-family: 'Playfair Display', Georgia, serif;
-            background-color: #f9f5f0;
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(to bottom, #fdf8f2 0%, #f9f2e8 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            color: #5c3e2a;
+            overflow-x: hidden;
         }
         
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 700px;
             text-align: center;
+            position: relative;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 0.5s;
+        }
+        
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 28px;
+            letter-spacing: 8px;
+            color: #a52a2a;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 18px;
+            font-style: italic;
+            color: #8b4513;
+        }
+        
+        .envelope-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 40px;
+            perspective: 1200px;
         }
         
         .envelope {
             position: relative;
             width: 100%;
             height: 0;
-            padding-bottom: 60%;
-            margin: 0 auto 40px;
-            perspective: 1000px;
+            padding-bottom: 65%;
+            transition: transform 0.6s ease;
         }
         
         .envelope-inner {
             position: absolute;
             width: 100%;
             height: 100%;
-            transition: transform 0.8s;
+            transition: transform 1s;
             transform-style: preserve-3d;
             cursor: pointer;
         }
@@ -54,43 +88,26 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            box-shadow: 0 15px 35px rgba(139, 0, 0, 0.22);
         }
         
         .envelope-front {
-            background: linear-gradient(135deg, #d4a972 0%, #a52a2a 100%);
-            border: 2px solid #a52a2a;
+            background: linear-gradient(135deg, #e6c9a1 0%, #a52a2a 100%);
+            border: 2px solid #8b4513;
+            z-index: 2;
         }
         
         .envelope-back {
-            background-color: #fff;
+            background: linear-gradient(to bottom, #fefaf4 0%, #fcf7f0 100%);
             transform: rotateY(180deg);
-            padding: 20px;
-        }
-        
-        .seal {
-            width: 80px;
-            height: 80px;
-            background-color: #a52a2a;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 2px solid white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 2;
+            padding: 30px;
+            border: 1px solid #d4a972;
         }
         
         .flap {
@@ -99,41 +116,72 @@
             left: 0;
             width: 100%;
             height: 40%;
-            background: linear-gradient(to bottom right, #a52a2a 0%, #8b0000 100%);
+            background: linear-gradient(to bottom right, #8b0000 0%, #a52a2a 100%);
             clip-path: polygon(0 0, 100% 0, 50% 100%);
-            z-index: 1;
+            z-index: 3;
+            transition: transform 0.8s ease-in-out;
+            transform-origin: top;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
         }
         
-        .instructions {
-            margin-top: 20px;
-            color: #a52a2a;
-            font-size: 18px;
-            font-style: italic;
+        .envelope:hover .flap {
+            transform: rotateX(180deg);
         }
         
-        .invitation-link {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 30px;
-            background-color: #a52a2a;
+        .seal {
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle at 30% 30%, #d4a972 0%, #a52a2a 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 20px rgba(164, 84, 39, 0.6);
+            position: relative;
+            z-index: 4;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .seal:before {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+            transform: rotate(45deg);
+            top: -80%;
+            left: -10%;
+        }
+        
+        .seal:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(164, 84, 39, 0.8);
+        }
+        
+        .names {
             color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(165, 42, 42, 0.3);
-        }
-        
-        .invitation-link:hover {
-            background-color: #8b0000;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(165, 42, 42, 0.4);
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            letter-spacing: 3px;
+            margin-top: 30px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
         }
         
         .ornament {
             position: absolute;
             width: 100%;
-            height: 20px;
+            height: 25px;
             bottom: 0;
             background: repeating-linear-gradient(
                 45deg,
@@ -142,14 +190,125 @@
                 #a52a2a 10px,
                 #a52a2a 20px
             );
+            z-index: 2;
         }
         
-        .names {
-            color: white;
-            font-size: 24px;
-            letter-spacing: 2px;
+        .floral-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23a52a2a' fill-opacity='0.15' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'%3E%3C/path%3E%3C/svg%3E");
+            opacity: 0.2;
+            z-index: 1;
+        }
+        
+        .envelope-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .envelope-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #a52a2a;
+            margin-bottom: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        
+        .envelope-content p {
+            font-size: 19px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #5c3e2a;
+        }
+        
+        .instructions {
+            margin: 20px 0;
+            color: #a52a2a;
+            font-size: 18px;
+            font-style: italic;
+            font-weight: 500;
+        }
+        
+        .invitation-link {
+            display: inline-flex;
+            align-items: center;
             margin-top: 20px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            padding: 14px 35px;
+            background: linear-gradient(to right, #a52a2a 0%, #8b0000 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(165, 42, 42, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .invitation-link:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #8b0000 0%, #a52a2a 100%);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        
+        .invitation-link:hover:before {
+            left: 0;
+        }
+        
+        .invitation-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(165, 42, 42, 0.5);
+        }
+        
+        .invitation-link i {
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .invitation-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        .footer {
+            margin-top: 40px;
+            font-size: 16px;
+            color: #8b4513;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 1.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .envelope-wrapper {
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 1s;
+        }
+        
+        .gold-line {
+            height: 2px;
+            width: 100px;
+            background: linear-gradient(to right, transparent, #d4a972, transparent);
+            margin: 20px auto;
         }
         
         @media (max-width: 600px) {
@@ -158,35 +317,136 @@
             }
             
             .seal {
-                width: 60px;
-                height: 60px;
-                font-size: 12px;
+                width: 70px;
+                height: 70px;
+                font-size: 14px;
             }
             
             .names {
-                font-size: 18px;
+                font-size: 22px;
+            }
+            
+            .envelope-content h2 {
+                font-size: 24px;
+            }
+            
+            .envelope-content p {
+                font-size: 17px;
+            }
+            
+            .invitation-link {
+                padding: 12px 25px;
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="envelope">
-            <div class="envelope-inner">
-                <div class="envelope-front">
-                    <div class="flap"></div>
-                    <div class="seal">Abrir</div>
-                    <div class="names">Carolina & Rodrigo</div>
-                    <div class="ornament"></div>
-                </div>
-                <div class="envelope-back">
-                    <h2>Você está convidado</h2>
-                    <p>Para celebrar o nosso casamento</p>
-                    <p class="instructions">Clique no botão abaixo para ver o convite completo</p>
-                    <a href="convite.html" class="invitation-link">Abrir Convite</a>
+        <div class="header">
+            <h1>Luana & Tierry</h1>
+            <p>Convidam você para nosso casamento</p>
+        </div>
+        
+        <div class="envelope-wrapper">
+            <div class="envelope">
+                <div class="envelope-inner">
+                    <div class="envelope-front">
+                        <div class="floral-decoration"></div>
+                        <div class="flap"></div>
+                        <div class="seal">Abrir</div>
+                        <div class="names">Luana & Tierry</div>
+                        <div class="ornament"></div>
+                    </div>
+                    <div class="envelope-back">
+                        <div class="floral-decoration"></div>
+                        <div class="envelope-content">
+                            <h2>Você está convidado</h2>
+                            <div class="gold-line"></div>
+                            <p>Para celebrar a união de</p>
+                            <p><strong>Luana & Tierry</strong></p>
+                            <p class="instructions">Clique no botão abaixo para ver nosso convite completo</p>
+                            <a href="convite.html" class="invitation-link" id="conviteLink">
+                                Abrir Convite <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        
+        <div class="footer">
+            <p>Com amor, Luana & Tierry · 2025</p>
+        </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const envelope = document.querySelector('.envelope');
+            const seal = document.querySelector('.seal');
+            const conviteLink = document.getElementById('conviteLink');
+            
+            // Adicionar efeito de clique no selo
+            seal.addEventListener('click', function(e) {
+                e.stopPropagation();
+                envelope.classList.toggle('open');
+            });
+            
+            // Adicionar efeito de clique no envelope
+            envelope.addEventListener('click', function() {
+                this.classList.toggle('open');
+            });
+            
+            // Adicionar algumas partículas de confete no background
+            createParticles();
+            
+            // Adicionar parâmetro à URL para indicar que o vídeo deve iniciar automaticamente
+            conviteLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Redirecionar para a página do convite com parâmetro para autoplay
+                window.location.href = 'convite.html?autoplay=true';
+            });
+        });
+        
+        function createParticles() {
+            const colors = ['#a52a2a', '#d4a972', '#8b4513', '#f9f2e8'];
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.width = '6px';
+                particle.style.height = '6px';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.borderRadius = '50%';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.opacity = '0';
+                particle.style.zIndex = '-1';
+                particle.style.animation = `floatParticle 15s linear ${Math.random() * 5}s infinite`;
+                document.body.appendChild(particle);
+            }
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes floatParticle {
+                    0% {
+                        transform: translateY(0) translateX(0);
+                        opacity: 0;
+                    }
+                    10% {
+                        opacity: 0.6;
+                    }
+                    90% {
+                        opacity: 0.4;
+                    }
+                    100% {
+                        transform: translateY(-100vh) translateX(${Math.random() * 100 - 50}px);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    </script>
 </body>
 </html>
