@@ -6,6 +6,12 @@
     <title>Painel Administrativo - Respostas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Firebase App (o núcleo do Firebase SDK é sempre necessário) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -244,6 +250,18 @@
             text-decoration: underline;
         }
         
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: #5a3921;
+        }
+        
+        .loading i {
+            color: #d32f2f;
+            margin-right: 10px;
+        }
+        
         @media (max-width: 768px) {
             .admin-title {
                 font-size: 2.2rem;
@@ -324,7 +342,11 @@
         </div>
         
         <div class="table-container">
-            <table class="responses-table">
+            <div class="loading" id="loading-message">
+                <i class="fas fa-spinner fa-spin"></i> Carregando respostas...
+            </div>
+            
+            <table class="responses-table" style="display: none;">
                 <thead>
                     <tr>
                         <th data-sort="name">Nome <i class="fas fa-sort"></i></th>
@@ -360,74 +382,20 @@
     </div>
 
     <script>
-        // Dados de exemplo (simulando respostas do Firebase)
-        const sampleData = [
-            {
-                id: "1",
-                name: "Ana Silva",
-                email: "ana.silva@email.com",
-                guests: "3",
-                message: "Mal podemos esperar para celebrar este momento especial com vocês!",
-                timestamp: "2023-10-15T14:30:00"
-            },
-            {
-                id: "2",
-                name: "Carlos Oliveira",
-                email: "carlos.oliveira@email.com",
-                guests: "2",
-                message: "",
-                timestamp: "2023-10-16T09:15:00"
-            },
-            {
-                id: "3",
-                name: "Mariana Santos",
-                email: "mariana.santos@email.com",
-                guests: "4",
-                message: "Que felicidade poder compartilhar deste dia! Estaremos lá com toda a família.",
-                timestamp: "2023-10-16T16:45:00"
-            },
-            {
-                id: "4",
-                name: "João Pereira",
-                email: "joao.pereira@email.com",
-                guests: "1",
-                message: "Parabéns pelo casamento! Confirmo minha presença.",
-                timestamp: "2023-10-17T11:20:00"
-            },
-            {
-                id: "5",
-                name: "Fernanda Lima",
-                email: "fernanda.lima@email.com",
-                guests: "2",
-                message: "Que honra poder testemunhar esta união! Contem conosco.",
-                timestamp: "2023-10-18T15:40:00"
-            },
-            {
-                id: "6",
-                name: "Ricardo Almeida",
-                email: "ricardo.almeida@email.com",
-                guests: "2",
-                message: "",
-                timestamp: "2023-10-19T10:05:00"
-            },
-            {
-                id: "7",
-                name: "Patrícia Costa",
-                email: "patricia.costa@email.com",
-                guests: "3",
-                message: "Nossa família inteira está ansiosa para este dia especial!",
-                timestamp: "2023-10-20T13:25:00"
-            },
-            {
-                id: "8",
-                name: "Bruno Martins",
-                email: "bruno.martins@email.com",
-                guests: "1",
-                message: "Não perderia este momento por nada! Parabéns!",
-                timestamp: "2023-10-21T17:50:00"
-            }
-        ];
-
+        // Inicializar Firebase com Firestore
+        const firebaseConfig = {
+            apiKey: "AIzaSyCSz9JnIHodcrZgpKGS39YGa2wpAoGonck",
+            authDomain: "nosso-casamento-a687a.firebaseapp.com",
+            projectId: "nosso-casamento-a687a",
+            storageBucket: "nosso-casamento-a687a.firebasestorage.app",
+            messagingSenderId: "191501825039",
+            appId: "1:191501825039:web:989db3d233848e13fddf7a"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
         // Variáveis globais
         let allResponses = [];
         let currentPage = 1;
@@ -436,8 +404,8 @@
         let currentSortOrder = 'desc';
         
         document.addEventListener('DOMContentLoaded', function() {
-            // Carregar dados
-            loadResponses();
+            // Carregar dados do Firebase
+            loadResponsesFromFirebase();
             
             // Configurar eventos
             document.getElementById('apply-filters').addEventListener('click', applyFilters);
@@ -451,29 +419,102 @@
             document.getElementById('export-btn').addEventListener('click', exportToCSV);
         });
         
-        function loadResponses() {
-            // Simular carregamento de dados
-            setTimeout(() => {
-                allResponses = sampleData;
-                let totalGuests = 0;
-                
-                allResponses.forEach(response => {
-                    if (response.guests) {
-                        totalGuests += parseInt(response.guests);
+        function loadResponsesFromFirebase() {
+            const loadingElement = document.getElementById('loading-message');
+            const tableElement = document.querySelector('.responses-table');
+            
+            loadingElement.style.display = 'block';
+            tableElement.style.display = 'none';
+            
+            db.collection("rsvps").get()
+                .then((querySnapshot) => {
+                    allResponses = [];
+                    let totalGuests = 0;
+                    
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        data.id = doc.id;
+                        allResponses.push(data);
+                        
+                        if (data.guests) {
+                            totalGuests += parseInt(data.guests);
+                        }
+                    });
+                    
+                    // Atualizar estatísticas
+                    document.getElementById('total-confirmations').textContent = allResponses.length;
+                    document.getElementById('total-guests').textContent = totalGuests;
+                    document.getElementById('avg-guests').textContent = allResponses.length > 0 ? 
+                        (totalGuests / allResponses.length).toFixed(1) : '0';
+                    
+                    // Aplicar ordenação e exibir dados
+                    sortResponses(currentSortField, currentSortOrder);
+                    displayResponses();
+                    setupPagination();
+                    
+                    // Esconder loading e mostrar tabela
+                    loadingElement.style.display = 'none';
+                    if (allResponses.length > 0) {
+                        tableElement.style.display = 'table';
+                    } else {
+                        document.getElementById('no-data-message').style.display = 'block';
                     }
+                })
+                .catch((error) => {
+                    console.error("Erro ao carregar dados: ", error);
+                    loadingElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erro ao carregar dados.';
+                    
+                    // Mostrar dados de exemplo em caso de erro
+                    setTimeout(() => {
+                        loadSampleData();
+                        loadingElement.style.display = 'none';
+                    }, 2000);
                 });
-                
-                // Atualizar estatísticas
-                document.getElementById('total-confirmations').textContent = allResponses.length;
-                document.getElementById('total-guests').textContent = totalGuests;
-                document.getElementById('avg-guests').textContent = allResponses.length > 0 ? 
-                    (totalGuests / allResponses.length).toFixed(1) : '0';
-                
-                // Aplicar ordenação e exibir dados
-                sortResponses(currentSortField, currentSortOrder);
-                displayResponses();
-                setupPagination();
-            }, 500); // Simular um pequeno atraso de carregamento
+        }
+        
+        function loadSampleData() {
+            // Dados de exemplo (apenas para demonstração se o Firebase falhar)
+            const sampleData = [
+                {
+                    id: "1",
+                    name: "Ana Silva",
+                    email: "ana.silva@email.com",
+                    guests: "3",
+                    message: "Mal podemos esperar para celebrar este momento especial com vocês!",
+                    timestamp: "2023-10-15T14:30:00"
+                },
+                {
+                    id: "2",
+                    name: "Carlos Oliveira",
+                    email: "carlos.oliveira@email.com",
+                    guests: "2",
+                    message: "",
+                    timestamp: "2023-10-16T09:15:00"
+                }
+            ];
+            
+            allResponses = sampleData;
+            let totalGuests = 0;
+            
+            allResponses.forEach(response => {
+                if (response.guests) {
+                    totalGuests += parseInt(response.guests);
+                }
+            });
+            
+            // Atualizar estatísticas
+            document.getElementById('total-confirmations').textContent = allResponses.length;
+            document.getElementById('total-guests').textContent = totalGuests;
+            document.getElementById('avg-guests').textContent = allResponses.length > 0 ? 
+                (totalGuests / allResponses.length).toFixed(1) : '0';
+            
+            // Aplicar ordenação e exibir dados
+            sortResponses(currentSortField, currentSortOrder);
+            displayResponses();
+            setupPagination();
+            
+            // Mostrar tabela
+            document.querySelector('.responses-table').style.display = 'table';
         }
         
         function sortResponses(field, order) {
@@ -534,7 +575,7 @@
             
             // Filtra as respostas
             const filteredResponses = allResponses.filter(response => {
-                return response.name.toLowerCase().includes(nameFilter);
+                return response.name && response.name.toLowerCase().includes(nameFilter);
             });
             
             // Ordena e exibe
@@ -549,10 +590,12 @@
             
             if (responses.length === 0) {
                 document.getElementById('no-data-message').style.display = 'block';
+                document.querySelector('.responses-table').style.display = 'none';
                 return;
             }
             
             document.getElementById('no-data-message').style.display = 'none';
+            document.querySelector('.responses-table').style.display = 'table';
             
             // Calcular índices para paginação
             const startIndex = (currentPage - 1) * itemsPerPage;

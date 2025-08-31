@@ -64,20 +64,20 @@
             text-align: center;
             color: white;
             padding: 20px;
+            z-index: 10;
         }
         
-        .hero-content {
-            max-width: 800px;
-            background: rgba(255, 250, 240, 0.92);
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(211, 47, 47, 0.3);
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-        
+       .hero-content {
+    max-width: 800px;
+    background: rgba(255, 250, 240, 0.1); /* Alterado de 0.92 para 0.75 */
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(211, 47, 47, 0.3);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
         .hero-content::before {
             content: "";
             position: absolute;
@@ -93,17 +93,18 @@
         .hero-title {
             font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
-            color: #d32f2f;
+            color: #f0eed2;
             margin-bottom: 20px;
             letter-spacing: 3px;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        
         }
         
         .couple-names {
             font-family: 'Playfair Display', serif;
             font-size: 4.5rem;
             margin: 25px 0;
-            color: #5a3921;
+            color: #f0eed2;
             position: relative;
             display: inline-block;
             padding: 0 30px;
@@ -117,7 +118,7 @@
             top: 50%;
             width: 80px;
             height: 3px;
-            background: linear-gradient(to right, transparent, #d32f2f, transparent);
+            background: linear-gradient(to right, transparent, #f0eed2, transparent);
         }
         
         .couple-names::before {
@@ -131,7 +132,7 @@
         .divider {
             width: 120px;
             height: 3px;
-            background: linear-gradient(to right, transparent, #d32f2f, transparent);
+            background: linear-gradient(to right, transparent, #f0eed2, transparent);
             margin: 30px auto;
             position: relative;
         }
@@ -141,7 +142,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            color: #d32f2f;
+            color: #f0eed2;
             font-size: 1.2rem;
         }
         
@@ -155,7 +156,7 @@
         
         .hero-date {
             font-size: 2.2rem;
-            color: #5a3921;
+            color: #f0eed2;
             margin: 25px 0;
             font-weight: 500;
             letter-spacing: 1px;
