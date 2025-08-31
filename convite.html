@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- Firebase App (o núcleo do Firebase SDK é sempre necessário) -->
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
@@ -67,17 +68,18 @@
             z-index: 10;
         }
         
-       .hero-content {
-    max-width: 800px;
-    background: rgba(255, 250, 240, 0.1); /* Alterado de 0.92 para 0.75 */
-    padding: 50px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(211, 47, 47, 0.3);
-    backdrop-filter: blur(10px);
-    position: relative;
-    overflow: hidden;
-}
+        .hero-content {
+            max-width: 800px;
+            background: rgba(255, 250, 240, 0.92);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(211, 47, 47, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
         .hero-content::before {
             content: "";
             position: absolute;
@@ -93,18 +95,17 @@
         .hero-title {
             font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
-            color: #f0eed2;
+            color: #d32f2f;
             margin-bottom: 20px;
             letter-spacing: 3px;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-        
         }
         
         .couple-names {
             font-family: 'Playfair Display', serif;
             font-size: 4.5rem;
             margin: 25px 0;
-            color: #f0eed2;
+            color: #5a3921;
             position: relative;
             display: inline-block;
             padding: 0 30px;
@@ -118,7 +119,7 @@
             top: 50%;
             width: 80px;
             height: 3px;
-            background: linear-gradient(to right, transparent, #f0eed2, transparent);
+            background: linear-gradient(to right, transparent, #d32f2f, transparent);
         }
         
         .couple-names::before {
@@ -132,7 +133,7 @@
         .divider {
             width: 120px;
             height: 3px;
-            background: linear-gradient(to right, transparent, #f0eed2, transparent);
+            background: linear-gradient(to right, transparent, #d32f2f, transparent);
             margin: 30px auto;
             position: relative;
         }
@@ -142,7 +143,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            color: #f0eed2;
+            color: #d32f2f;
             font-size: 1.2rem;
         }
         
@@ -156,7 +157,7 @@
         
         .hero-date {
             font-size: 2.2rem;
-            color: #f0eed2;
+            color: #5a3921;
             margin: 25px 0;
             font-weight: 500;
             letter-spacing: 1px;
@@ -1236,6 +1237,94 @@
     .video-control i {
         font-size: 20px;
     }
+
+    @media (max-width: 768px) {
+    .hero-content {
+        padding: 25px 15px;
+        margin: 0 15px;
+        width: 90%;
+    }
+    
+    .couple-names {
+        font-size: 2.8rem;
+        padding: 0 15px;
+        margin: 15px 0;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-date {
+        font-size: 1.5rem;
+    }
+    
+    .countdown-box {
+        width: 70px;
+        height: 70px;
+        margin: 5px;
+    }
+    
+    .countdown-value {
+        font-size: 1.8rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.7rem;
+    }
+    
+    .location-details, .time {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+    }
+    
+    .section-title, .location-title, .rsvp-title {
+        font-size: 2rem;
+    }
+    
+    .story-content {
+        font-size: 1.2rem;
+        padding: 0 10px;
+    }
+    
+    .gift-card {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 20px;
+    }
+    
+    .rsvp-btn {
+        padding: 15px 40px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .couple-names {
+        font-size: 2.2rem;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .countdown-box {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .countdown-value {
+        font-size: 1.5rem;
+    }
+    
+    .section-title, .location-title, .rsvp-title {
+        font-size: 1.8rem;
+    }
+    
+    .story-content {
+        font-size: 1.1rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -1743,7 +1832,17 @@
         videoControl.innerHTML = '<i class="fas fa-play"></i>';
         videoPlaying = false;
     });
-
+    // Ajuste dinâmico da viewport para dispositivos móveis
+    function adjustViewport() {
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (isMobile) {
+            const viewport = document.querySelector('meta[name="viewport"]');
+            viewport.setAttribute('content', 'width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=yes');
+        }
+    }
+    
+    // Executar quando a página carregar
+    document.addEventListener('DOMContentLoaded', adjustViewport);
     </script>
 </body>
 </html>
