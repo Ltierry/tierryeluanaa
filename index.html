@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convite de Casamento - Luana & Tierry</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Bem-vindo ao Nosso Casamento</title>
     <style>
         * {
             margin: 0;
@@ -15,424 +13,149 @@
         
         body {
             font-family: 'Cormorant Garamond', serif;
-            background-color: #fcf9f5;
-            color: #4a3c2a;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        .elegant-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* Header elegante */
-        .elegant-header {
-            text-align: center;
-            padding: 60px 20px;
-            position: relative;
-            background: linear-gradient(rgba(252, 249, 245, 0.9), rgba(252, 249, 245, 0.9)), 
-                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%23d4c1a0" stroke-width="2" stroke-dasharray="5,5"/></svg>');
-            background-size: 30px 30px;
-        }
-        
-        .header-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .names {
-            font-size: 5rem;
-            font-weight: 300;
-            letter-spacing: 8px;
-            margin-bottom: 20px;
-            color: #8c6d46;
-            text-transform: uppercase;
-            position: relative;
-            display: inline-block;
-            padding-bottom: 20px;
-        }
-        
-        .names:after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 2px;
-            background: linear-gradient(to right, transparent, #d4c1a0, transparent);
-        }
-        
-        .subtitle {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 300;
-            font-size: 1.2rem;
-            letter-spacing: 4px;
-            margin-bottom: 40px;
-            color: #7a6650;
-            text-transform: uppercase;
-        }
-        
-        .date-display {
-            font-size: 1.8rem;
-            margin: 30px 0;
-            color: #8c6d46;
-            font-style: italic;
-        }
-        
-        /* Seção principal */
-        .main-invitation {
+            background-color: #faf7f5;
+            color: #5a5a5a;
+            height: 100vh;
             display: flex;
-            flex-wrap: wrap;
-            min-height: 600px;
-            margin: 40px 0;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
-            background: white;
-        }
-        
-        .invitation-image {
-            flex: 1;
-            min-width: 300px;
-            background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), 
-                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><path fill="%23d4c1a0" d="M45,50a5,5 0 1,1 10,0a5,5 0 1,1 -10,0"/><path fill="%23d4c1a0" d="M145,150a5,5 0 1,1 10,0a5,5 0 1,1 -10,0"/><path fill="%23d4c1a0" d="M45,150a5,5 0 1,1 10,0a5,5 0 1,1 -10,0"/><path fill="%23d4c1a0" d="M145,50a5,5 0 1,1 10,0a5,5 0 1,1 -10,0"/></svg>');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        
-        .invitation-details {
-            flex: 1;
-            min-width: 300px;
-            padding: 60px 40px;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
-            position: relative;
+            align-items: center;
+            overflow: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23e6d2c4' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
         
-        .ornamental-border {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            border: 1px solid #e8ddd0;
-            pointer-events: none;
-        }
-        
-        .detail-item {
-            margin-bottom: 30px;
+        .container {
             text-align: center;
-        }
-        
-        .detail-title {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400;
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            color: #a08e75;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-        
-        .detail-content {
-            font-size: 1.4rem;
-            color: #4a3c2a;
-        }
-        
-        .divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, #e8ddd0, transparent);
-            width: 80%;
-            margin: 30px auto;
-        }
-        
-        /* Botão de confirmação */
-        .rsvp-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background-color: transparent;
-            color: #8c6d46;
-            border: 1px solid #d4c1a0;
-            text-decoration: none;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
+            max-width: 600px;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
-            margin-top: 20px;
         }
         
-        .rsvp-button:before {
+        .container::before {
             content: "";
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 193, 160, 0.2), transparent);
-            transition: all 0.6s ease;
-        }
-        
-        .rsvp-button:hover:before {
-            left: 100%;
-        }
-        
-        .rsvp-button:hover {
-            background-color: #f8f4ef;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        /* Footer elegante */
-        .elegant-footer {
-            text-align: center;
-            padding: 60px 20px 40px;
-            position: relative;
-        }
-        
-        .closing-message {
-            font-size: 1.2rem;
-            font-style: italic;
-            color: #7a6650;
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .signature {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            color: #8c6d46;
-            margin-top: 40px;
-            position: relative;
-            display: inline-block;
-            padding: 0 30px;
-        }
-        
-        .signature:before, .signature:after {
-            content: "✦";
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #d4c1a0;
-            font-size: 1.2rem;
-        }
-        
-        .signature:before {
             left: 0;
-        }
-        
-        .signature:after {
             right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #e6d2c4, #d4b9a3, #e6d2c4);
         }
         
-        /* Elementos decorativos */
-        .floral-decoration {
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #8b6b5e;
+            font-weight: 400;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .countdown {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #a88e7d;
+        }
+        
+        .heart {
+            color: #d4a59a;
+            display: inline-block;
+            margin: 0 5px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #d4b9a3;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #c0a48f;
+            transform: translateY(-2px);
+        }
+        
+        .flowers {
             position: absolute;
-            width: 150px;
-            height: 150px;
-            opacity: 0.1;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%238c6d46" d="M50,20 A30,30 0 1,1 50,80 A30,30 0 1,1 50,20z M50,30 A20,20 0 1,0 50,70 A20,20 0 1,0 50,30z"/></svg>');
-            background-repeat: no-repeat;
-            background-position: center;
+            font-size: 3rem;
+            opacity: 0.15;
+            z-index: -1;
         }
         
-        .decoration-top-left {
+        .flower-1 {
             top: 20px;
             left: 20px;
         }
         
-        .decoration-bottom-right {
+        .flower-2 {
             bottom: 20px;
             right: 20px;
-            transform: rotate(180deg);
         }
         
-        /* Animações suaves */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate-element {
-            opacity: 0;
-            animation: fadeIn 1s ease forwards;
-        }
-        
-        .delay-1 { animation-delay: 0.3s; }
-        .delay-2 { animation-delay: 0.6s; }
-        .delay-3 { animation-delay: 0.9s; }
-        .delay-4 { animation-delay: 1.2s; }
-        
-        /* Responsividade */
         @media (max-width: 768px) {
-            .names {
-                font-size: 3rem;
-                letter-spacing: 4px;
+            h1 {
+                font-size: 2rem;
             }
             
-            .subtitle {
+            p {
                 font-size: 1rem;
-                letter-spacing: 2px;
             }
             
-            .date-display {
-                font-size: 1.4rem;
-            }
-            
-            .detail-content {
-                font-size: 1.2rem;
-            }
-            
-            .invitation-details {
-                padding: 40px 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .names {
-                font-size: 2.2rem;
-                letter-spacing: 3px;
-            }
-            
-            .main-invitation {
-                flex-direction: column;
-            }
-            
-            .invitation-image {
-                min-height: 300px;
+            .container {
+                margin: 0 1rem;
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="elegant-container">
-        <header class="elegant-header">
-            <div class="floral-decoration decoration-top-left"></div>
-            <div class="floral-decoration decoration-bottom-right"></div>
-            
-            <div class="header-content">
-                <h1 class="names animate-element">Luana & Tierry</h1>
-                <p class="subtitle animate-element delay-1">Temos a honra de anunciar o nosso casamento</p>
-                
-                <div class="date-display animate-element delay-2">
-                    <i class="far fa-calendar-alt"></i> 15 de Novembro de 2025
-                </div>
-            </div>
-        </header>
+    <div class="container">
+        <div class="flowers flower-1">🌸</div>
+        <div class="flowers flower-2">💐</div>
         
-        <div class="main-invitation">
-            <div class="invitation-image">
-                <!-- Imagem seria colocada aqui -->
-            </div>
-            
-            <div class="invitation-details">
-                <div class="ornamental-border"></div>
-                
-                <div class="detail-item animate-element">
-                    <div class="detail-title">Data e Hora</div>
-                    <div class="detail-content">15 de Novembro de 2025 às 16h</div>
-                </div>
-                
-                <div class="detail-item animate-element delay-1">
-                    <div class="detail-title">Localização</div>
-                    <div class="detail-content">Fazenda Santa Maria<br>Rodovia dos Bandeirantes, KM 85<br>São Paulo - SP</div>
-                </div>
-                
-                <div class="detail-item animate-element delay-2">
-                    <div class="detail-title">Traje</div>
-                    <div class="detail-content">Esporte fino</div>
-                </div>
-                
-                <div class="divider"></div>
-                
-                <div class="animate-element delay-3">
-                    <a href="#rsvp" class="rsvp-button">Confirmar Presença</a>
-                </div>
-            </div>
+        <h1>Bem-vindo ao Nosso Casamento</h1>
+        <p>Estamos tão felizes por você estar aqui para celebrar conosco este dia especial!</p>
+        
+        <div class="countdown">
+            Redirecionando para nosso convite em <span id="countdown">5</span> segundos...
         </div>
         
-        <footer class="elegant-footer">
-            <p class="closing-message animate-element">
-                "O amor não se vê com os olhos, mas com o coração. Por isso é que os Cupidos são pintados cegos."
-                <br>- William Shakespeare
-            </p>
-            
-            <div class="signature animate-element delay-1">
-                Com amor, Luana & Tierry
-            </div>
-        </footer>
+        <p>Ou se preferir, clique no botão abaixo para acessar imediatamente:</p>
+        <a href="index.html" class="btn">Ver Convite</a>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Adiciona efeito de digitação no título
-            const names = document.querySelector('.names');
-            const originalText = names.textContent;
-            names.textContent = '';
+        // Contagem regressiva e redirecionamento
+        let seconds = 5;
+        const countdownElement = document.getElementById('countdown');
+        const countdownInterval = setInterval(() => {
+            seconds--;
+            countdownElement.textContent = seconds;
             
-            let i = 0;
-            function typeWriter() {
-                if (i < originalText.length) {
-                    names.textContent += originalText.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 100);
-                }
+            if (seconds <= 0) {
+                clearInterval(countdownInterval);
+                window.location.href = 'convite.html';
             }
-            
-            // Inicia a animação de digitação
-            setTimeout(typeWriter, 1000);
-            
-            // Adiciona partículas de efeito elegante
-            createElegantParticles();
-        });
-        
-        function createElegantParticles() {
-            const colors = ['#e8ddd0', '#d4c1a0', '#c8b090', '#f0e8d8'];
-            
-            for (let i = 0; i < 15; i++) {
-                const particle = document.createElement('div');
-                particle.style.position = 'fixed';
-                particle.style.width = '6px';
-                particle.style.height = '6px';
-                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.borderRadius = '50%';
-                particle.style.top = Math.random() * 100 + 'vh';
-                particle.style.left = Math.random() * 100 + 'vw';
-                particle.style.opacity = '0';
-                particle.style.pointerEvents = 'none';
-                particle.style.zIndex = '-1';
-                particle.style.animation = `floatParticle 20s linear ${Math.random() * 5}s infinite`;
-                document.body.appendChild(particle);
-            }
-            
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes floatParticle {
-                    0% {
-                        transform: translateY(0) translateX(0) rotate(0deg);
-                        opacity: 0;
-                    }
-                    10% {
-                        opacity: 0.4;
-                    }
-                    90% {
-                        opacity: 0.3;
-                    }
-                    100% {
-                        transform: translateY(-100vh) translateX(${Math.random() * 100 - 50}px) rotate(360deg);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-        }
+        }, 1000);
     </script>
 </body>
 </html>
