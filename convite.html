@@ -1325,6 +1325,10 @@
         font-size: 1.1rem;
     }
 }
+
+.video-section, .video-control {
+    display: none !important;
+}
     </style>
 </head>
 <body>
@@ -1490,12 +1494,7 @@
             
             <div class="spinner" id="spinner"></div>
             
-            <div class="error-message" id="errorMessage">
-                <i class="fas fa-exclamation-circle"></i>
-                <h3>Erro ao enviar confirmação</h3>
-                <p id="errorText">Houve um problema ao processar sua confirmação. Por favor, tente novamente.</p>
-            </div>
-            
+    
             <div class="confirmation" id="confirmationMessage">
                 <i class="fas fa-heart"></i>
                 <h3>Obrigado por confirmar!</h3>
