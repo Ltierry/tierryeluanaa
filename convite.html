@@ -1349,6 +1349,68 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+/* Estilo para o texto da galeria */
+.gallery-text {
+    text-align: center;
+    margin-top: 50px;
+    padding: 0 20px;
+}
+
+.gallery-text p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    line-height: 1.6;
+    color: #5a3921;
+    font-style: italic;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+}
+
+
+.gallery-text p::before {
+    top: -25px;
+    left: -30px;
+}
+
+.gallery-text p::after {
+    bottom: -40px;
+    right: -30px;
+    transform: rotate(180deg);
+}
+
+@media (max-width: 768px) {
+    .gallery-text p {
+        font-size: 1.5rem;
+    }
+    
+    .gallery-text p::before,
+    .gallery-text p::after {
+        font-size: 2.5rem;
+    }
+    
+    .gallery-text p::before {
+        left: -15px;
+    }
+    
+    .gallery-text p::after {
+        right: -15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-text p {
+        font-size: 1.3rem;
+    }
+    
+    .gallery-text p::before,
+    .gallery-text p::after {
+        font-size: 2rem;
+    }
+}
+
+
     </style>
 </head>
 <body>
@@ -1473,7 +1535,13 @@
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
+
+              <div class="gallery-text">
+    <p>Cada sorriso, cada abraço e cada instante nos trouxeram até aqui, onde decidimos dizer sim para o amor, para a vida e para sempre juntos.</p>
+</div>
         </section>
+
+      
         
         <!-- Seção de Local -->
         <section class="location-section animate">
