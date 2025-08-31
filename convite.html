@@ -2088,7 +2088,7 @@ if (distance < 0) {
         });
     });
 
-    function openPixModal() {
+     function openPixModal() {
         // Criar modal se não existir
         if (!document.getElementById('pixModal')) {
             const pixModal = document.createElement('div');
@@ -2096,7 +2096,7 @@ if (distance < 0) {
             pixModal.className = 'modal';
             pixModal.innerHTML = `
                 <div class="modal-content">
-                    <span class="close-modal" onclick="closePixModal()">&times;</span>
+                    <span class="close-modal" id="closePixModal">&times;</span>
                     <h3 class="modal-title">Chave PIX</h3>
                     <div style="text-align: center; margin: 30px 0;">
                         <p style="font-size: 1.3rem; margin-bottom: 20px;">Para presentear através de PIX, utilize nossa chave:</p>
@@ -2110,21 +2110,26 @@ if (distance < 0) {
                 </div>
             `;
             document.body.appendChild(pixModal);
+            
+            // Adicionar evento de fechar ao botão do modal PIX
+            document.getElementById('closePixModal').addEventListener('click', closePixModal);
         }
         
         // Mostrar modal
         document.getElementById('pixModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Impede scroll
     }
     
     // Função para fechar o modal do PIX
     function closePixModal() {
         document.getElementById('pixModal').style.display = 'none';
+        document.body.style.overflow = 'auto'; // Permite scroll novamente
     }
     
     // Função para copiar a chave PIX
     function copyPixKey() {
         const pixKey = document.getElementById('pixKey');
-        const copyButton = event.target;
+        const copyButton = event.currentTarget;
         
         navigator.clipboard.writeText(pixKey.textContent)
             .then(() => {
@@ -2151,12 +2156,12 @@ if (distance < 0) {
     }
     
     // Fechar modal ao clicar fora do conteúdo
-    window.onclick = function(event) {
+    window.addEventListener('click', function(event) {
         const modal = document.getElementById('pixModal');
         if (event.target === modal) {
             closePixModal();
         }
-    }
+    });
     </script>
 </body>
 </html>
