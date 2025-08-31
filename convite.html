@@ -1410,6 +1410,55 @@
     }
 }
 
+ /* Estilos para a seção de presentes com botões */
+    .gift-buttons-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 400px;
+        margin: 40px auto;
+    }
+    
+    .gift-btn.large {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: #d32f2f;
+        color: white;
+        padding: 20px 30px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-size: 1.3rem;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-align: center;
+        box-shadow: 0 8px 25px rgba(211, 47, 47, 0.3);
+    }
+    
+    .gift-btn.large:hover {
+        background: #b71c1c;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(183, 28, 28, 0.4);
+    }
+    
+    @media (max-width: 768px) {
+        .gift-buttons-container {
+            max-width: 300px;
+        }
+        
+        .gift-btn.large {
+            padding: 16px 25px;
+            font-size: 1.1rem;
+        }
+    }
+
+    /* Garantir que o modal do PIX tenha z-index alto */
+#pixModal {
+    z-index: 1001;
+}
+
 
     </style>
 </head>
@@ -1551,45 +1600,28 @@
             <div class="time">18:30</div>
 
         <!-- Lista de Presentes -->
-        <section class="gifts-section animate">
-            <h3 class="section-title">Lista de Presentes</h3>
-            <div class="gift-options">
-                <div class="gift-card">
-                    <div class="gift-image">
-                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJoZWFdZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" alt="Presente 1">
-                    </div>
-                    <div class="gift-details">
-                        <h4 class="gift-title">Casa e Cozinha</h4>
-                        <a href="#" class="gift-btn">Ver Lista</a>
-                    </div>
-                </div>
-                
-                <div class="gift-card">
-                    <div class="gift-image">
-                        <img src="https://images.unsplash.com/photo-1585155770447-2f66e2a397b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" alt="Presente 2">
-                    </div>
-                    <div class="gift-details">
-                        <h4 class="gift-title">Viagem de Lua de Mel</h4>
-                        <a href="#" class="gift-btn">Contribuir</a>
-                    </div>
-                </div>
-                
-                <div class="gift-card">
-                    <div class="gift-image">
-                        <img src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" alt="Presente 3">
-                    </div>
-                    <div class="gift-details">
-                        <h4 class="gift-title">Vale Presente</h4>
-                        <a href="#" class="gift-btn">Escolher</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+       <section class="gifts-section animate">
+    <h3 class="section-title">Lista de Presentes</h3>
+    <div class="gift-buttons-container">
+        <a href="https://m.querodecasamento.com.br/lista-de-casamento/tierry-luana" target="_blank" class="gift-btn large">
+            <i class="fas fa-gift"></i>
+            Ver Lista Magalu
+        </a>
+        <a href="https://listas.casasbahia.com.br/tierryeluana" target="_blank" class="gift-btn large">
+            <i class="fas fa-gift"></i>
+            Ver Lista Casas Bahia
+        </a>
+      <button class="gift-btn large" onclick="openPixModal()">
+    <i class="fas fa-money-bill-wave"></i>
+    Presentear com PIX
+</button>
+    </div>
+</section>
         
         <!-- Seção RSVP -->
         <section class="rsvp-section animate">
             <h3 class="rsvp-title">Confirme sua presença</h3>
-            <button class="rsvp-btn" id="rsvpButton">RSVP</button>
+            <button class="rsvp-btn" id="rsvpButton">Confirmar</button>
             
             <div class="spinner" id="spinner"></div>
             
@@ -1958,6 +1990,149 @@ if (distance < 0) {
     document.getElementById("seconds").textContent = "00";
     countdownMessage.textContent = "O grande dia finalmente chegou! Estamos tão felizes por compartilhar este momento com você!";
 }
+  // Modal para informações do PIX
+   document.addEventListener('DOMContentLoaded', function() {
+        const pixButton = document.getElementById('pixButton');
+        
+        // Criar modal do PIX
+        const pixModal = document.createElement('div');
+        pixModal.className = 'modal';
+        pixModal.id = 'pixModal';
+        pixModal.style.display = 'none';
+        pixModal.innerHTML = `
+            <div class="modal-content">
+                <span class="close-modal" id="closePixModal">&times;</span>
+                <h3 class="modal-title">Chave PIX</h3>
+                <div style="text-align: center; margin: 30px 0;">
+                    <p style="font-size: 1.3rem; margin-bottom: 20px;">Para presentear através de PIX, utilize nossa chave:</p>
+                    <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; margin-bottom: 25px;">
+                        <p id="pixKey" style="font-size: 1.4rem; font-weight: bold; color: #5a3921; word-break: break-all;">190.109.727-71</p>
+                    </div>
+                    <button id="copyPixButton" class="submit-btn">
+                        <i class="fas fa-copy"></i> Copiar Chave PIX
+                    </button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(pixModal);
+        
+        // Abrir modal do PIX
+        pixButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('pixModal').style.display = 'flex';
+        });
+        
+        // Fechar modal do PIX
+        const closePixModal = document.getElementById('closePixModal');
+        closePixModal.addEventListener('click', function() {
+            document.getElementById('pixModal').style.display = 'none';
+        });
+        
+        // Fechar modal ao clicar fora
+        window.addEventListener('click', function(event) {
+            if (event.target === document.getElementById('pixModal')) {
+                document.getElementById('pixModal').style.display = 'none';
+            }
+        });
+        
+        // Copiar chave PIX
+        const copyPixButton = document.getElementById('copyPixButton');
+        copyPixButton.addEventListener('click', function() {
+            const pixKey = document.getElementById('pixKey');
+            navigator.clipboard.writeText(pixKey.textContent)
+                .then(() => {
+                    copyPixButton.innerHTML = '<i class="fas fa-check"></i> Chave Copiada!';
+                    setTimeout(() => {
+                        copyPixButton.innerHTML = '<i class="fas fa-copy"></i> Copiar Chave PIX';
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Erro ao copiar texto: ', err);
+                    // Fallback para seleção manual em navegadores mais antigos
+                    const textArea = document.createElement('textarea');
+                    textArea.value = pixKey.textContent;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    copyPixButton.innerHTML = '<i class="fas fa-check"></i> Chave Copiada!';
+                    setTimeout(() => {
+                        copyPixButton.innerHTML = '<i class="fas fa-copy"></i> Copiar Chave PIX';
+                    }, 2000);
+                });
+        });
+    });
+
+    function openPixModal() {
+        // Criar modal se não existir
+        if (!document.getElementById('pixModal')) {
+            const pixModal = document.createElement('div');
+            pixModal.id = 'pixModal';
+            pixModal.className = 'modal';
+            pixModal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close-modal" onclick="closePixModal()">&times;</span>
+                    <h3 class="modal-title">Chave PIX</h3>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <p style="font-size: 1.3rem; margin-bottom: 20px;">Para presentear através de PIX, utilize nossa chave:</p>
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; margin-bottom: 25px;">
+                            <p id="pixKey" style="font-size: 1.4rem; font-weight: bold; color: #5a3921; word-break: break-all;">190.109.727-71</p>
+                        </div>
+                        <button class="submit-btn" onclick="copyPixKey()">
+                            <i class="fas fa-copy"></i> Copiar Chave PIX
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(pixModal);
+        }
+        
+        // Mostrar modal
+        document.getElementById('pixModal').style.display = 'flex';
+    }
+    
+    // Função para fechar o modal do PIX
+    function closePixModal() {
+        document.getElementById('pixModal').style.display = 'none';
+    }
+    
+    // Função para copiar a chave PIX
+    function copyPixKey() {
+        const pixKey = document.getElementById('pixKey');
+        const copyButton = event.target;
+        
+        navigator.clipboard.writeText(pixKey.textContent)
+            .then(() => {
+                copyButton.innerHTML = '<i class="fas fa-check"></i> Chave Copiada!';
+                setTimeout(() => {
+                    copyButton.innerHTML = '<i class="fas fa-copy"></i> Copiar Chave PIX';
+                }, 2000);
+            })
+            .catch(err => {
+                console.error('Erro ao copiar: ', err);
+                // Fallback para navegadores mais antigos
+                const textArea = document.createElement('textarea');
+                textArea.value = pixKey.textContent;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                copyButton.innerHTML = '<i class="fas fa-check"></i> Chave Copiada!';
+                setTimeout(() => {
+                    copyButton.innerHTML = '<i class="fas fa-copy"></i> Copiar Chave PIX';
+                }, 2000);
+            });
+    }
+    
+    // Fechar modal ao clicar fora do conteúdo
+    window.onclick = function(event) {
+        const modal = document.getElementById('pixModal');
+        if (event.target === modal) {
+            closePixModal();
+        }
+    }
     </script>
 </body>
 </html>
