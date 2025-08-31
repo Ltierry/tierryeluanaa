@@ -483,14 +483,16 @@
             background: linear-gradient(to right, transparent, #d32f2f, transparent);
         }
         
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            color: #5a3921;
-            margin-bottom: 60px;
-            position: relative;
-            display: inline-block;
-        }
+       .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    color: #5a3921;
+    margin-bottom: 60px;
+    position: relative;
+    display: block; /* Alterado de inline-block para block */
+    text-align: center; /* Centraliza o texto */
+    width: 100%; /* Garante que ocupe toda a largura */
+}
         
         .section-title::after {
             content: "";
@@ -1459,6 +1461,14 @@
     z-index: 1001;
 }
 
+#pixModal .close-modal {
+    font-size: 40px !important;
+    width: 50px !important;
+    height: 50px !important;
+    top: 15px !important;
+    right: 20px !important;
+}
+
 
     </style>
 </head>
@@ -1600,8 +1610,14 @@
             <div class="time">18:30</div>
 
         <!-- Lista de Presentes -->
-       <section class="gifts-section animate">
+      <section class="gifts-section animate">
     <h3 class="section-title">Lista de Presentes</h3>
+    
+    <!-- Texto adicional aqui -->
+    <p style="font-size: 1.4rem; text-align: center; color: #5a3921; margin: 30px auto; max-width: 800px; line-height: 1.6; font-style: italic;">
+        O maior presente é a sua presença nesse dia tão especial, mas se desejar nos presentear, deixamos abaixo nossa lista com muito carinho.
+    </p>
+    
     <div class="gift-buttons-container">
         <a href="https://m.querodecasamento.com.br/lista-de-casamento/tierry-luana" target="_blank" class="gift-btn large">
             <i class="fas fa-gift"></i>
@@ -1611,26 +1627,29 @@
             <i class="fas fa-gift"></i>
             Ver Lista Casas Bahia
         </a>
-      <button class="gift-btn large" onclick="openPixModal()">
-    <i class="fas fa-money-bill-wave"></i>
-    Presentear com PIX
-</button>
+        <button class="gift-btn large" onclick="openPixModal()">
+            <i class="fas fa-money-bill-wave"></i>
+            Presentear com PIX
+        </button>
     </div>
 </section>
         
         <!-- Seção RSVP -->
-        <section class="rsvp-section animate">
-            <h3 class="rsvp-title">Confirme sua presença</h3>
-            <button class="rsvp-btn" id="rsvpButton">Confirmar</button>
-            
-            <div class="spinner" id="spinner"></div>
-            
+       <section class="rsvp-section animate">
+    <h3 class="rsvp-title">Confirme sua presença</h3>
+    <button class="rsvp-btn" id="rsvpButton">Confirmar</button>
     
-            <div class="confirmation" id="confirmationMessage">
-                <i class="fas fa-heart"></i>
-                <h3>Obrigado por confirmar!</h3>
-                <p>Sua presença é muito importante para nós. Mal podemos esperar para celebrar este dia especial com você!</p>
-            </div>
+    <!-- Texto de prazo adicionado aqui -->
+    <p style="margin-top: 25px; font-size: 1.2rem; color: #5a3921; font-style: italic; max-width: 600px; margin-left: auto; margin-right: auto;">
+        Pedimos que confirme sua presença até o dia 11/09/2025, caso contrário seu nome será retirado da lista de recepção.
+    </p>
+    
+    <div class="spinner" id="spinner"></div>
+    
+    <div class="confirmation" id="confirmationMessage">
+        <i class="fas fa-heart"></i>
+        <h3>Obrigado por confirmar!</h3>
+        <p>Sua presença é muito importante para nós. Mal podemos esperar para celebrar este dia especial com você!</p>
         </section>
 
         <!-- Seção de Vídeo -->
@@ -1656,10 +1675,10 @@
     </div>
     
     <!-- Modal de Confirmação -->
-    <div class="modal" id="rsvpModal">
-        <div class="modal-content">
-            <span class="close-modal" id="closeModal">&times;</span>
-            <h3 class="modal-title">Confirmar Presença</h3>
+   <div class="modal" id="rsvpModal">
+    <div class="modal-content">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <h3 class="modal-title">Confirmar Presença</h3>
             
             <form id="rsvpForm">
                 <div class="form-group">
@@ -1671,18 +1690,7 @@
                     <label for="email">E-mail</label>
                     <input type="email" id="email" required>
                 </div>
-                
-                <div class="form-group">
-                    <label for="guests">Número de convidados</label>
-                    <select id="guests" required>
-                        <option value="">Selecione...</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5 ou mais</option>
-                    </select>
-                </div>
+
                 
                 <div class="form-group">
                     <label for="message">Mensagem para os noivos (opcional)</label>
@@ -1810,11 +1818,14 @@
     }
 }, 1000);
             // Abrir modal
-            rsvpButton.addEventListener('click', function() {
-                rsvpModal.style.display = 'flex';
-                errorMessage.style.display = 'none';
-                confirmationMessage.style.display = 'none';
-            });
+            if (rsvpButton) {
+    rsvpButton.addEventListener('click', function() {
+        if (rsvpModal) {
+            rsvpModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Impede scroll quando modal aberto
+        }
+    });
+}
             
             // Fechar modal
             closeModal.addEventListener('click', function() {
@@ -1822,47 +1833,60 @@
             });
             
             // Fechar modal ao clicar fora
-            window.addEventListener('click', function(event) {
-                if (event.target === rsvpModal) {
-                    rsvpModal.style.display = 'none';
-                }
-            });
+           window.addEventListener('click', function(event) {
+    if (event.target === rsvpModal) {
+        rsvpModal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Permite scroll novamente
+    }
+});
             
             // Enviar formulário
-            rsvpForm.addEventListener('submit', function(e) {
-                e.preventDefault();
+          if (rsvpForm) {
+    rsvpForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Mostrar algum indicador de carregamento (opcional)
+        const submitBtn = this.querySelector('.submit-btn');
+        const originalText = submitBtn.textContent;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        submitBtn.disabled = true;
+        
+        // Coletar dados do formulário
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            message: document.getElementById('message').value,
+            timestamp: new Date().toISOString()
+        };
+        
+        console.log("Enviando dados:", formData);
+        
+        // Salvar no Firestore
+        db.collection("rsvps").add(formData)
+            .then((docRef) => {
+                console.log("Documento escrito com ID: ", docRef.id);
+                // Fechar modal e mostrar confirmação
+                rsvpModal.style.display = 'none';
+                if (confirmationMessage) {
+                    confirmationMessage.style.display = 'block';
+                }
+                rsvpForm.reset();
+                document.body.style.overflow = 'auto';
                 
-                // Mostrar spinner de carregamento
-                spinner.style.display = 'block';
-                errorMessage.style.display = 'none';
+                // Restaurar botão
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            })
+            .catch((error) => {
+                console.error("Erro ao adicionar documento: ", error);
+                alert('Houve um erro ao enviar sua confirmação. Por favor, tente novamente.');
                 
-                // Coletar dados do formulário
-                const formData = {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    guests: document.getElementById('guests').value,
-                    message: document.getElementById('message').value,
-                    timestamp: new Date().toISOString()
-                };
-                
-                // Salvar no Firestore
-                db.collection("rsvps").add(formData)
-                    .then((docRef) => {
-                        console.log("Documento escrito com ID: ", docRef.id);
-                        // Fechar modal e mostrar confirmação
-                        rsvpModal.style.display = 'none';
-                        confirmationMessage.style.display = 'block';
-                        rsvpForm.reset();
-                        spinner.style.display = 'none';
-                    })
-                    .catch((error) => {
-                        console.error("Erro ao adicionar documento: ", error);
-                        errorText.textContent = error.message || 'Houve um erro ao enviar sua confirmação. Por favor, tente novamente.';
-                        errorMessage.style.display = 'block';
-                        spinner.style.display = 'none';
-                    });
+                // Restaurar botão mesmo em caso de erro
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
             });
-            
+    });
+}
             // Controle de música
             let isPlaying = false;
             
