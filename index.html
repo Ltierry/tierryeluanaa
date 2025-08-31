@@ -192,6 +192,88 @@
             font-size: 0.9rem;
         }
         
+        /* Modal de aviso de volume */
+        .volume-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(90, 60, 50, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .volume-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: rgba(255, 253, 251, 0.98);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 15px 35px rgba(90, 60, 50, 0.25);
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.5s ease;
+        }
+        
+        .volume-modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-icon {
+            font-size: 3.5rem;
+            color: #a73e2f;
+            margin-bottom: 1.5rem;
+            display: block;
+            animation: pulse 2s infinite;
+        }
+        
+        .modal-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: #a73e2f;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-message {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #5a3c32;
+            margin-bottom: 2rem;
+        }
+        
+        .modal-btn {
+            display: inline-block;
+            padding: 12px 35px;
+            background: linear-gradient(to right, #a73e2f, #c45d4d);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 400;
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(167, 62, 47, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        .modal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(167, 62, 47, 0.4);
+        }
+        
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.8rem;
@@ -213,6 +295,18 @@
             .btn {
                 padding: 14px 35px;
                 font-size: 1.1rem;
+            }
+            
+            .modal-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .modal-title {
+                font-size: 1.8rem;
+            }
+            
+            .modal-message {
+                font-size: 1rem;
             }
         }
         
@@ -238,18 +332,31 @@
                 font-size: 1.8rem;
             }
             
-            
             .flowers {
                 font-size: 2.5rem;
             }
+            
+            .modal-icon {
+                font-size: 2.8rem;
+            }
+            
+            .modal-title {
+                font-size: 1.6rem;
+            }
         }
-
-        
-
-        
     </style>
 </head>
 <body>
+    <!-- Modal de aviso de volume -->
+    <div class="volume-modal active">
+        <div class="modal-content">
+            <span class="modal-icon">🔊</span>
+            <h2 class="modal-title">Aviso Importante</h2>
+            <p class="modal-message">Aumente o volume ao clicar em "Acessar Convite" para uma melhor experiência!</p>
+            <button class="modal-btn" id="modal-close-btn">Entendi</button>
+        </div>
+    </div>
+
     <div class="container">
         <div class="flowers flower-1">❤</div>
         <div class="flowers flower-2">❤</div>
@@ -281,9 +388,22 @@
     </div>
 
     <script>
-        // Este código redireciona para convite.html com o parâmetro autoplay
-        // No arquivo convite.html, você precisa adicionar código para detectar este parâmetro
-        // e iniciar a reprodução do vídeo automaticamente
+        // Fechar o modal quando o botão for clicado
+        document.getElementById('modal-close-btn').addEventListener('click', function() {
+            document.querySelector('.volume-modal').classList.remove('active');
+        });
+        
+        // Opcional: Fechar o modal ao clicar fora da área de conteúdo
+        document.querySelector('.volume-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+        
+        // Se quiser que o modal reapareça após um tempo (opcional)
+        // setTimeout(function() {
+        //     document.querySelector('.volume-modal').classList.add('active');
+        // }, 30000); // Aparecer novamente após 30 segundos
     </script>
 </body>
 </html>

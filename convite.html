@@ -1337,6 +1337,18 @@
 .video-section, .video-control {
     display: none !important;
 }
+
+.countdown-message {
+    font-size: 1.4rem;
+    color: #5a3921;
+    margin-top: 30px;
+    font-style: italic;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
     </style>
 </head>
 <body>
@@ -1380,27 +1392,29 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <!-- Contagem Regressiva -->
-        <section class="countdown-section animate">
-            <h3 class="countdown-title">Contagem Regressiva</h3>
-            <div class="countdown-container">
-                <div class="countdown-box">
-                    <div class="countdown-value" id="days">00</div>
-                    <div class="countdown-label">Dias</div>
-                </div>
-                <div class="countdown-box">
-                    <div class="countdown-value" id="hours">00</div>
-                    <div class="countdown-label">Horas</div>
-                </div>
-                <div class="countdown-box">
-                    <div class="countdown-value" id="minutes">00</div>
-                    <div class="countdown-label">Minutos</div>
-                </div>
-                <div class="countdown-box">
-                    <div class="countdown-value" id="seconds">00</div>
-                    <div class="countdown-label">Segundos</div>
-                </div>
-            </div>
-        </section>
+     <section class="countdown-section animate">
+    <h3 class="countdown-title">Contagem Regressiva</h3>
+    <div class="countdown-container">
+        <div class="countdown-box">
+            <div class="countdown-value" id="days">00</div>
+            <div class="countdown-label">Dias</div>
+        </div>
+        <div class="countdown-box">
+            <div class="countdown-value" id="hours">00</div>
+            <div class="countdown-label">Horas</div>
+        </div>
+        <div class="countdown-box">
+            <div class="countdown-value" id="minutes">00</div>
+            <div class="countdown-label">Minutos</div>
+        </div>
+        <div class="countdown-box">
+            <div class="countdown-value" id="seconds">00</div>
+            <div class="countdown-label">Segundos</div>
+        </div>
+    </div>
+    <!-- Adicione esta linha abaixo do countdown-container -->
+    <p class="countdown-message" id="countdownMessage"></p>
+</section>
         
         <!-- Nossa História -->
         <section class="story-section animate">
@@ -1665,32 +1679,36 @@
             const weddingDate = new Date('October 18, 2025 18:30:00').getTime();
             
             // Atualizar a contagem regressiva a cada segundo
-            const countdownTimer = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = weddingDate - now;
-                
-                // Cálculos para dias, horas, minutos e segundos
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                
-                // Exibir os resultados
-                document.getElementById("days").textContent = days.toString().padStart(2, '0');
-                document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
-                document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
-                document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
-                
-                // Se a contagem regressiva terminar
-                if (distance < 0) {
-                    clearInterval(countdownTimer);
-                    document.getElementById("days").textContent = "00";
-                    document.getElementById("hours").textContent = "00";
-                    document.getElementById("minutes").textContent = "00";
-                    document.getElementById("seconds").textContent = "00";
-                }
-            }, 1000);
-            
+           const countdownTimer = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
+    
+    // Cálculos para dias, horas, minutos e segundos
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    // Exibir os resultados
+    document.getElementById("days").textContent = days.toString().padStart(2, '0');
+    document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+    document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+    document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+    
+    // Atualizar a mensagem personalizada
+    const countdownMessage = document.getElementById("countdownMessage");
+    countdownMessage.textContent = `Faltam ainda ${days} dias para esse grande dia, estamos tão ansiosos, será que vamos chorar? Sim ou com certeza?`;
+    
+    // Se a contagem regressiva terminar
+    if (distance < 0) {
+        clearInterval(countdownTimer);
+        document.getElementById("days").textContent = "00";
+        document.getElementById("hours").textContent = "00";
+        document.getElementById("minutes").textContent = "00";
+        document.getElementById("seconds").textContent = "00";
+        countdownMessage.textContent = "O grande dia finalmente chegou! Estamos tão felizes por compartilhar este momento com você!";
+    }
+}, 1000);
             // Abrir modal
             rsvpButton.addEventListener('click', function() {
                 rsvpModal.style.display = 'flex';
@@ -1859,6 +1877,19 @@
     
     // Executar quando a página carregar
     document.addEventListener('DOMContentLoaded', adjustViewport);
+
+    const countdownMessage = document.getElementById("countdownMessage");
+countdownMessage.textContent = `Faltam ainda ${days} dias para esse grande momento e mal podemos esperar para que tudo aconteça logo!`;
+
+// E na parte onde verifica se a contagem terminou:
+if (distance < 0) {
+    clearInterval(countdownTimer);
+    document.getElementById("days").textContent = "00";
+    document.getElementById("hours").textContent = "00";
+    document.getElementById("minutes").textContent = "00";
+    document.getElementById("seconds").textContent = "00";
+    countdownMessage.textContent = "O grande dia finalmente chegou! Estamos tão felizes por compartilhar este momento com você!";
+}
     </script>
 </body>
 </html>
