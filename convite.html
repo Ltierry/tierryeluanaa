@@ -1500,25 +1500,25 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         
-        document.addEventListener('DOMContentLoaded', function() {
-
-            // Verificar se o parâmetro autoplay está presente na URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const autoplay = urlParams.get('autoplay');
-        
-        if (autoplay === 'true') {
-            // Encontrar o elemento de vídeo e reproduzir
-            const videoElement = document.getElementById('ourVideo');
-            if (videoElement) {
-                // Esperar um pouco para garantir que o vídeo esteja carregado
-                setTimeout(function() {
-                    videoElement.play().catch(function(error) {
-                        console.log('Autoplay não permitido pelo navegador:', error);
-                        // Em alguns navegadores, pode ser necessário interação do usuário
-                    });
-                }, 1000);
-            }
+     document.addEventListener('DOMContentLoaded', function() {
+    // Verificar se o parâmetro autoplay está presente na URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const autoplay = urlParams.get('autoplay');
+    
+    if (autoplay === 'true') {
+        // Encontrar o elemento de vídeo e reproduzir
+        const videoElement = document.getElementById('ourVideo'); // Substitua pelo ID real do seu vídeo
+        if (videoElement) {
+            // Esperar um pouco para garantir que o vídeo esteja carregado
+            setTimeout(function() {
+                videoElement.play().catch(function(error) {
+                    console.log('Autoplay não permitido pelo navegador:', error);
+                    // Em alguns navegadores, pode ser necessário interação do usuário
+                });
+            }, 1000);
         }
+    }
+
     
             const rsvpButton = document.getElementById('rsvpButton');
             const rsvpModal = document.getElementById('rsvpModal');
