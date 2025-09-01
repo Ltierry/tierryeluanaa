@@ -11,6 +11,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
     <!-- Firebase Firestore -->
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     
     <style>
         * {
@@ -177,6 +178,25 @@
             color: #d32f2f;
             cursor: pointer;
             font-size: 0.9rem;
+            margin-right: 10px;
+        }
+        
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #d32f2f;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .delete-btn:hover {
+            color: #b71c1c;
+        }
+        
+        .actions-cell {
+            width: 100px;
+            text-align: center;
         }
         
         .export-section {
@@ -262,6 +282,62 @@
             margin-right: 10px;
         }
         
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-btn.confirm {
+            background-color: #d32f2f;
+            color: white;
+        }
+        
+        .modal-btn.confirm:hover {
+            background-color: #b71c1c;
+        }
+        
+        .modal-btn.cancel {
+            background-color: #f1f1f1;
+            color: #5a3921;
+        }
+        
+        .modal-btn.cancel:hover {
+            background-color: #ddd;
+        }
+        
         @media (max-width: 768px) {
             .admin-title {
                 font-size: 2.2rem;
@@ -326,7 +402,6 @@
                 <select id="sort-by">
                     <option value="timestamp">Data de Confirmação</option>
                     <option value="name">Nome</option>
-                    <option value="guests">Nº de Convidados</option>
                 </select>
             </div>
             <div class="filter-item">
@@ -351,9 +426,9 @@
                     <tr>
                         <th data-sort="name">Nome <i class="fas fa-sort"></i></th>
                         <th data-sort="email">E-mail <i class="fas fa-sort"></i></th>
-                        <th data-sort="guests">Convidados <i class="fas fa-sort"></i></th>
                         <th data-sort="message">Mensagem <i class="fas fa-sort"></i></th>
                         <th data-sort="timestamp">Data <i class="fas fa-sort"></i></th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody id="responses-body">
@@ -371,14 +446,26 @@
         </div>
         
         <div class="export-section">
-            <button class="export-btn" id="export-btn">
-                <i class="fas fa-download"></i> Exportar para CSV
-            </button>
+        <button class="export-btn" id="export-btn" onclick="exportToExcel()">
+    <i class="fas fa-download"></i> Exportar para Excel
+</button>
         </div>
         
         <a href="index.html" class="back-link">
             <i class="fas fa-arrow-left"></i> Voltar para o convite
         </a>
+    </div>
+
+    <!-- Modal de confirmação de exclusão -->
+    <div class="modal" id="delete-modal">
+        <div class="modal-content">
+            <h3>Confirmar Exclusão</h3>
+            <p>Tem certeza que deseja excluir a confirmação de <span id="delete-name"></span>?</p>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm" id="confirm-delete">Excluir</button>
+                <button class="modal-btn cancel" id="cancel-delete">Cancelar</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -402,6 +489,7 @@
         const itemsPerPage = 5;
         let currentSortField = 'timestamp';
         let currentSortOrder = 'desc';
+        let currentDeleteId = null;
         
         document.addEventListener('DOMContentLoaded', function() {
             // Carregar dados do Firebase
@@ -417,6 +505,17 @@
             });
             
             document.getElementById('export-btn').addEventListener('click', exportToCSV);
+            
+            // Configurar eventos do modal de exclusão
+            document.getElementById('confirm-delete').addEventListener('click', deleteResponse);
+            document.getElementById('cancel-delete').addEventListener('click', closeDeleteModal);
+            
+            // Fechar modal ao clicar fora dele
+            document.getElementById('delete-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeDeleteModal();
+                }
+            });
         });
         
         function loadResponsesFromFirebase() {
@@ -522,12 +621,6 @@
                 let valueA = a[field] || '';
                 let valueB = b[field] || '';
                 
-                // Para ordenação numérica
-                if (field === 'guests') {
-                    valueA = parseInt(valueA) || 0;
-                    valueB = parseInt(valueB) || 0;
-                }
-                
                 // Para ordenação de datas
                 if (field === 'timestamp') {
                     valueA = new Date(valueA).getTime();
@@ -554,11 +647,13 @@
             
             // Atualiza indicadores visuais
             document.querySelectorAll('th').forEach(th => {
-                th.querySelector('i').className = 'fas fa-sort';
+                if (th.querySelector('i')) {
+                    th.querySelector('i').className = 'fas fa-sort';
+                }
             });
             
             const currentTh = document.querySelector(`th[data-sort="${field}"]`);
-            if (currentTh) {
+            if (currentTh && currentTh.querySelector('i')) {
                 currentTh.querySelector('i').className = 
                     currentSortOrder === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down';
             }
@@ -612,12 +707,16 @@
                 row.innerHTML = `
                     <td>${response.name || '-'}</td>
                     <td>${response.email || '-'}</td>
-                    <td>${response.guests || '0'}</td>
                     <td class="message-cell">
                         ${response.message || 'Nenhuma mensagem'}
                         ${response.message ? '<button class="expand-btn" onclick="toggleMessage(this)"><i class="fas fa-expand"></i></button>' : ''}
                     </td>
                     <td>${formattedDate}</td>
+                    <td class="actions-cell">
+                        <button class="delete-btn" onclick="openDeleteModal('${response.id}', '${response.name}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
                 `;
                 
                 tbody.appendChild(row);
@@ -683,6 +782,33 @@
             }
         }
         
+        function openDeleteModal(id, name) {
+            currentDeleteId = id;
+            document.getElementById('delete-name').textContent = name;
+            document.getElementById('delete-modal').style.display = 'flex';
+        }
+        
+        function closeDeleteModal() {
+            document.getElementById('delete-modal').style.display = 'none';
+            currentDeleteId = null;
+        }
+        
+        function deleteResponse() {
+            if (!currentDeleteId) return;
+            
+            db.collection("rsvps").doc(currentDeleteId).delete()
+                .then(() => {
+                    console.log("Documento excluído com sucesso!");
+                    closeDeleteModal();
+                    loadResponsesFromFirebase(); // Recarregar os dados
+                })
+                .catch((error) => {
+                    console.error("Erro ao excluir documento: ", error);
+                    alert("Erro ao excluir a confirmação. Tente novamente.");
+                    closeDeleteModal();
+                });
+        }
+        
         function exportToCSV() {
             if (allResponses.length === 0) {
                 alert('Não há dados para exportar.');
@@ -715,6 +841,47 @@
             link.click();
             document.body.removeChild(link);
         }
+
+        function exportToExcel() {
+    if (allResponses.length === 0) {
+        alert('Não há dados para exportar.');
+        return;
+    }
+    
+    // Preparar os dados para a planilha
+    const data = allResponses.map(response => {
+        const date = new Date(response.timestamp);
+        const formattedDate = `${date.toLocaleDateString('pt-BR')} ${date.toLocaleTimeString('pt-BR')}`;
+        
+        return {
+            'Nome': response.name || '',
+            'E-mail': response.email || '',
+            'Convidados': response.guests || '0',
+            'Mensagem': response.message || '',
+            'Data': formattedDate
+        };
+    });
+    
+    // Criar uma planilha
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    
+    // Ajustar a largura das colunas
+    const columnWidths = [
+        { wch: 25 }, // Nome
+        { wch: 30 }, // E-mail
+        { wch: 10 }, // Convidados
+        { wch: 50 }, // Mensagem
+        { wch: 20 }  // Data
+    ];
+    worksheet['!cols'] = columnWidths;
+    
+    // Criar um livro de trabalho e adicionar a planilha
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Confirmações');
+    
+    // Gerar o arquivo Excel e fazer o download
+    XLSX.writeFile(workbook, 'confirmacoes-casamento.xlsx');
+}
     </script>
 </body>
 </html>
